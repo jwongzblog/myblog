@@ -34,4 +34,5 @@ MegaRAID command tool仅仅支持LSI Logic SAS RAID存储适配器，下面简�
 **在这里多说几句，虽然生成命令行工具的库有很多，但是google brain开源的[python-fire](https://github.com/google/python-fire)库可以更简略的生成命令行**
 # 参考
 《[MegaRAID管理磁盘](http://blog.csdn.net/shengyyyyyy/article/details/78951747)》
+
 《[MegaCli 监控raid状态](http://blog.chinaunix.net/uid-25135004-id-3139293.html)》
