@@ -1,5 +1,5 @@
 ironic的raid配置生效时机是在节点的cleaning阶段进行的，具体过程如下：
-#1.进入维护模式：
+# 1.进入维护模式：
 如果节点是刚创建，处于enroll阶段，那么执行如下命令使节点进入维护模式：
 ```
 ironic --ironic-api-version 1.15 node-set-provision-state $NODE_UUID manage 
@@ -11,11 +11,11 @@ ironic --ironic-api-version 1.15 node-set-provision-state $NODE_UUID deleted
 ```
 
 
-#2.退出维护模式：
+# 2.退出维护模式：
 ```
 ironic node-set-maintenance $NODE_UUID false
 ```
-#3.执行clean-step:
+# 3.执行clean-step:
 - 首先，配置
 ```
  raid configration：ironic --ironic-api-version 1.15 node-set-target-raid-config $NODE_UUID '{"logical_disks": [{"size_gb": "MAX", "disk_type": "hdd", "number_of_physical_disks": 2, "raid_level": "1"}]}'
@@ -35,11 +35,11 @@ raid配置参数具体看这里：[raid configration](https://docs.openstack.org
 
 HP服务器会进入deploy system，然后创建raid，所有配置完成后将进入关机状态
 
-#4.进入available状态：
+# 4.进入available状态：
   ``` 
  ironic --ironic-api-version 1.15 node-set-provision-state $NODE_UUID provide
 ```
-#5.为什么老司机花了两周时间才搞定上面一点点的东西
+# 5.为什么老司机花了两周时间才搞定上面一点点的东西
 **接下来讲讲排查问题遇到的坑，以及如何解决，一方面进行思维训练，另一方面也给大家排查问题提供方法、思路**
 - 有次华三的产品经理说他们招了几百人的团队专门做KVM的优化，不知道是不是吹的，但我们的思路是通过ironic提供物理机来解决性能问题
 - 一开始接到ironic的存储管理预研，同事给我一台all in one的devstack以及一台HP的服务器，并且告知成功创建了实例，但是按照ironic docs操作的时候我配了raid configration，始终创建node失败，maintenance reason显示系统尝试erase /sda1 /sdb1，但是由于只读所以失败了，HP服务器显示一块磁盘出于degraded状态，并且没有按照我的配置创建raid。我怀疑是磁盘的问题，由于一些原因换不了，为了验证是不是磁盘原因导致，我使用本地镜像安装了centos，排除了磁盘的影响，并且使用擦除磁盘的命令，确实没有权限

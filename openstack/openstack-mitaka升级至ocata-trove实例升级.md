@@ -2,9 +2,9 @@
     
 **前置条件： trove服务升级成功，确保各项配置文件是正确的，尤其是rabbitMQ、ceph的配置信息（特殊：针对trove独立部署、网络不通需要HAproxy转换）**
    
-#####1、上传最新的mysql镜像，更新datastore-version的镜像ID，指向新上传的镜像
-#####2、/usr/lib/python2.7/site-packages/trove/templates/mysql/目录下有个配置文件夹 ‘5.5-ga’是升级前创建的datastore，我们升级后这个文件夹不存在了，需要把当前目录下的'5.5'文件夹复制成‘5.5-ga’，所有的controller节点都需要更新
-#####3、搜集trove实例相关信息，方便脚本正常运行，需要留意 跨project的问题。通过“ select * from instances where deleted = '0';”搜集到实例，与应用层给出的实例对比一下
+##### 1、上传最新的mysql镜像，更新datastore-version的镜像ID，指向新上传的镜像
+##### 2、/usr/lib/python2.7/site-packages/trove/templates/mysql/目录下有个配置文件夹 ‘5.5-ga’是升级前创建的datastore，我们升级后这个文件夹不存在了，需要把当前目录下的'5.5'文件夹复制成‘5.5-ga’，所有的controller节点都需要更新
+##### 3、搜集trove实例相关信息，方便脚本正常运行，需要留意 跨project的问题。通过“ select * from instances where deleted = '0';”搜集到实例，与应用层给出的实例对比一下
 4、选择其中一个controller节点（例如controller1），进入$work_dir/common/get_trove_instance_info/目录执行：bash -x 01_get_trove_instances_info.sh
 ```
 #!/usr/bin/env bash
@@ -38,7 +38,7 @@ do
 #拷贝文本至网络节点，实例升级脚本需在网络节点执行
 sshpass -p$NETWORK_NODE_PASSWORD scp $work_dir/common/get_trove_instance_info/nova_nic_ip_secgroup.txt root@$NETWORK_NODE_IP:$work_dir/network
 ```
-#####5.选择其中一个network节点（例如network1），进入$work_dir/network/目录执行：bash -x  08_trove_instance_upgrade.sh
+##### 5.选择其中一个network节点（例如network1），进入$work_dir/network/目录执行：bash -x  08_trove_instance_upgrade.sh
 ```
 #!/usr/bin/env bash
 # author: wangjun
@@ -78,7 +78,7 @@ done
 BLOCK
 ```
 
-#####6.回到controller1节点，进入$work_dir/common/get_trove_instance_info/目录执行：bash -x 02_clear_secgroup_rule.sh   关闭实例22端口
+##### 6.回到controller1节点，进入$work_dir/common/get_trove_instance_info/目录执行：bash -x 02_clear_secgroup_rule.sh   关闭实例22端口
 ```
 
 #!/usr/bin/env bash
@@ -94,7 +94,7 @@ do
 done
 ```
 
-#####7.回到controller1节点，进入$work_dir/common/get_trove_instance_info/目录执行：bash -x 03_trove_instance_upgrade.sh 使用upgrade彻底升级实例，除去人工痕迹
+##### 7.回到controller1节点，进入$work_dir/common/get_trove_instance_info/目录执行：bash -x 03_trove_instance_upgrade.sh 使用upgrade彻底升级实例，除去人工痕迹
 ```
 
 #!/usr/bin/env bash
@@ -113,7 +113,7 @@ do
 done
 ```
 
-#####8、验证操作旧 trove 实例：
+##### 8、验证操作旧 trove 实例：
 
 trove list
 trove show ${ID}

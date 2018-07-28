@@ -1,11 +1,11 @@
-#Ironic存储管理
+# Ironic存储管理
 上周对ironic的存储进行了预研，我们非常期待ironic尽快能够集成cinder
-###1.现状
+### 1.现状
 通过研读O版的源码，发现目前的版本还不支持cinder管理卷，主要表现在两个方面：
 - nova的ironic驱动没有实现attach_volume基类方法
 - ironic模块没有实现卷的管理，比如暴露volume connector、target，mount volume，device manager不过好在富士通和日立的工程师在推进ironic的cinder卷管理，目前master的commit已经能看到日立工程师的patch，里面实现了volume connector、target的创建、获取、删除。
 
-###2.计划
+### 2.计划
 通过咨询openstack-dev@lists.openstack.org ironic的负责人之一回复了邮件，具体内容如下：
 
 ----------------------------------------------------------------------
@@ -58,7 +58,7 @@ Content-Type: text/plain; charset="UTF-8"
 
 其中[需求列表]( https://specs.openstack.org/openstack/ironic-specs/specs/not-implemented/volume-connection-information.html) 详细介绍了volume manager的需求以及接口设计，从回复中可以看到ironic正在讨论如何设计 volume与node的lifecycle。
 
-###3.预期
+### 3.预期
 以目前的社区进度，应该无法在近两个版本内提供完善的cinder卷管理功能。目力所能及的要解决这几个问题：
 - 第一步是ironic本身需要提供restful api，完成volume的链接管理，挂载等。（顺利的话最快-
 能在Pike版本提供）
@@ -69,7 +69,7 @@ Content-Type: text/plain; charset="UTF-8"
 
 不太推荐的方式是为了进度，我们自己提供一套实现而不等待社区回复，但这会面临一个问题就是未来还是要合并代码，将我们的实现覆盖，而且有可能出现一些考虑不周的BUG
 
-###4.冲击力
+### 4.冲击力
 ironic一旦兼容cinder，将在这几方面改善：
 - 存储扩容，不受限于插槽的数量
 - 存储备份，cinder backup的能力可以集成进来
