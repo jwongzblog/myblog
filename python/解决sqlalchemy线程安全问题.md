@@ -1,5 +1,5 @@
 sqlalchemy是一个非常强大的python orm库，功能完善，BUG少，版本发布频繁，缺点就是代码的可读性略差，我估计过不了pep8、pylint的检查
-#ORM的好处
+# ORM的好处
 - 帮忙解决sql注入的问题
 - 将操作SQL语句变成操作对象，无需像原生那样用下标取值，也就没有新增字段需要调整下标的问题
 - 在不变更逻辑实现的情况下替换数据库引擎
@@ -7,7 +7,7 @@ sqlalchemy是一个非常强大的python orm库，功能完善，BUG少，版本
 - 简便的升级机制alembic、migrate
 ......
 
-#处理线程安全
+# 处理线程安全
 你的进程形如RPC或者webservice，如果是阻塞式的，那么你可以放心使用，用完注意close上下文的资源即可（如果不及时处理连接池，会因为mysql长时间没有访问，造成client端连接还存在的假象，实际上长连接已被mysql service释放，再次访问时会出现‘mysql has gone away’的异常。mysql安装默认是8小时移除连接，RDS是两小时）
 但如果你的进程是多线程的，那么你可要当心了，分分钟让你的程序的数据库操作异常，因为**sqlalchemy并不是线程安全的**。官方文档为此特别出了一篇说明：[链接](http://docs.sqlalchemy.org/en/latest/orm/contextual.html#unitofwork-contextual)
 举例一个webservice的正确使用姿势：
@@ -43,7 +43,7 @@ web request    ->   web request     ->   # The registry is *optionally*
 outgoing web    <-
 response
 ```
-#scoped_session是如何解决线程安全问题？
+# scoped_session是如何解决线程安全问题？
 我贴两处源码大家应该就懂了
 ```
 class scoped_session(object):
@@ -81,7 +81,7 @@ class ThreadLocalRegistry(ScopedRegistry):
         self.registry = threading.local()
 ```
 进程创建了一个全局的session，但通过scoped_session，每个线程会在一个独立的threading.local()空间保留一个registry
-#补充
+# 补充
 - remove不要遗漏，否则依然会出现mysql has gone away的错误
 - 代码比较丑陋，比较舒服的是openstack的处理方式：
 ```

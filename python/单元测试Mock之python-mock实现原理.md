@@ -7,13 +7,13 @@
 - 最最重要的Mock，模拟返回值
 - ......
 
-##Mock
+## Mock
 刚接触Mock，不知道哪位同事称呼其为打桩，后面大家都喜欢说成打桩，我觉得还是很形象的，但在外面跟人说打桩，估计没人理解是什么意思，mock的原意是模拟，模拟返回值的意思。我想聊mock的原因在于有些test case在执行的时候总会出现类似远程调用之类的逻辑而环境不具备，因此mock很好的解决了这个问题，模拟一些无法执行的函数或者类，让上层的调用顺利执行下去，测试上层的逻辑是否正确，每种程序语言的mock实现充分利用了其语言特性，非常精巧，我先聊聊python mock
 ## python mock资源
 - mock on pypi [链接](https://pypi.python.org/pypi/mock)
 - mock code on github[链接](https://github.com/testing-cabal/mock/tree/master/mock)
 - mock pdf[链接](http://www.voidspace.org.uk/downloads/mock-1.0.1.pdf)
-##python mock原理
+## python mock原理
 代码不多，2000多行，充分利用动态语言的特性来实现mock，Python mock的使用大体分成两类
 - Mock class
 这类用法是把调用对象的object id直接指向了mock，也就是说你的程序在调用某个函数或者类的时候，其实调的是Mock类初始化出来的object（试想一下c++的指针能指来指去吗？），例如:

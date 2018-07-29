@@ -1,6 +1,6 @@
 tornado是一个完整的轻量级web框架，利用tornado即可完成一个网站的搭建，而openstack的web架构却采用另一种思路来设计。这个设计思路我之前提到过，也就是openstack的所有设计，都是插件式，组合式的。比如trove采用的是eventlet处理网络请求，paste、router处理路由和http协议，webob处理http协议返回值；而新项目如ironic，依然是eventlet处理网络请求，webob处理返回值，但是使用pecan来处理路由。总体上来讲是围绕wsgi协议的web框架，各自分工很明确，也可以被替代
 
-#tornado与eventlet的比较
+# tornado与eventlet的比较
 相同点：
 - 是他们都是采用epoll网络模型
 - 采用协程处理网络请求
@@ -14,7 +14,7 @@ tornado是一个完整的轻量级web框架，利用tornado即可完成一个网
 
 *在此，我在这里纠正一个我的错误，也许你们也有这个误解，就是我一直以为协程和线程一样，是并发式的、抢占式的，但是深入研究发现，协程是阻塞式的，队列式的，只不过通过轻松的切换协程的执行，看起来像是并发的，所以他的目标是跑满CPU*
 
-#eventlet的用法
+# eventlet的用法
 举个简单的创建webservice的例子
 ```
 import eventlet
@@ -31,7 +31,7 @@ wsgi.server(eventlet.listen(('', 8090)), hello_world)
 ```
 上面的例子是不是很简单？但是在工程实践中，需要考虑很多元素，以trove模块为例我们来看看openstack是怎么做的。
 
-#####主进程中socket的创建
+##### 主进程中socket的创建
 trove/common/base-wsgi.py:
 ```
 class Service(service.Service):
@@ -57,7 +57,7 @@ def __init__(self, application, port,
                 if sslutils.is_enabled(CONF):
                     sock = sslutils.wrap(CONF, sock)
 ```
-#####oslo.service
+##### oslo.service
 oslo.service库封装了eventlet进程的创建，根据配置文件的worker值创建子进程，如果没有配置，就默认为CPU数。
 如/oslo.service/oslo_srevice/service.py：
 ```
@@ -112,7 +112,7 @@ oslo.service库封装了eventlet进程的创建，根据配置文件的worker值
 
         return pid
 ```
-######eventlet处理socket
+###### eventlet处理socket
 几个进程accept同一个socket，谁抢到谁处理
 ```
 def server(sock, site,
@@ -152,7 +152,7 @@ def server(sock, site,
                 break
     finally:    
 ```
-#####eventlet协程处理
+##### eventlet协程处理
 上面的代码留意这一段：
 ```
 pool.spawn(serv.process_request, connection)

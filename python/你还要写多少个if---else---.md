@@ -53,6 +53,8 @@ $ python example.py multiply 10 20
 ```
 这样一来，你设计并实现的command工具可以极少的写判断语句，不仅添加功能方便，维护简单，而且代码量也很少，代码少BUG就少，一举多得。
 
-##参考：
+## 参考：
+
 [github代码链接](https://github.com/google/python-fire)
+
 [readme](https://github.com/google/python-fire/blob/master/docs/guide.md)
