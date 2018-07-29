@@ -3,7 +3,7 @@ mysql proxy是mysql官方开发的一款代理软件，主要达到对mysql serv
 github源码地址：https://github.com/mysql/mysql-proxy
 
 # 工作原理如图所示：
-![image.png](https://upload-images.jianshu.io/upload_images/5945542-1e7f0b83f28cc8e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image.png](https://github.com/jwongzblog/myblog/blob/master/image/mysql-proxy.png)
 
 
 # 源码安装

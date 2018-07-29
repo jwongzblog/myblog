@@ -14,7 +14,7 @@ Thinkpad的设计不像mac，它采用的是模块化的设计，硬件直接完
 - 内存条在中部，卸开一个螺丝即可插入新购内存条
 - 硬盘设计在左下角，卸开一个螺丝即可拔出硬盘，只需注意新购SSD尺寸，直接插入卡槽即可工作
 - 光驱被设计在右下角，两个组合的滑动操作即可取出光驱，如图所示：
-![image.png](http://upload-images.jianshu.io/upload_images/5945542-fbbf196ab4549dc9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image.png](https://github.com/jwongzblog/myblog/blob/master/image/thinkpad.png)
 
 各个部件生产厂商只需要设计出大小一致，接口相同的部件，即可随意替换，随意优化。模块间不互相干扰，各自完成自己的工作
 # 抽象与实现分离

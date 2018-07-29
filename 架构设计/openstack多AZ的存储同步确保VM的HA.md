@@ -1,11 +1,11 @@
 # 背景
 由于一些不可控因素导致单个AZ不可用，影响客户业务，而openstack的多AZ方案能尽可能缩短业务恢复时间，降低因服务不可用造成的损失。而不断向前迭代的ceph，强有力的支撑了openstack的高可用，通过ceph rbd mirror功能，可以提供pool、volume的跨集群同步
 # 部署架构
-![image.png](https://upload-images.jianshu.io/upload_images/5945542-00cbe90a9304ab04.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image.png](https://github.com/jwongzblog/myblog/blob/master/image/multi-az1.png)
 
-![image.png](https://upload-images.jianshu.io/upload_images/5945542-82dd7f30d8cd3177.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image.png](https://github.com/jwongzblog/myblog/blob/master/image/multi-az2.png)
 
-![image.png](https://upload-images.jianshu.io/upload_images/5945542-19c6aa2124ab4892.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image.png](https://github.com/jwongzblog/myblog/blob/master/image/multi-az3.png)
 #### 如图所示
 - 平时AZ1对外提供服务，AZ2不对外提供服务
 - AZ1的ceph1集群与AZ2的ceph2集群可以进行volume一级的同步，当VM数据下发至vol1、vol2后， ceph1集群以异步的方式将vol1、vol2的数据同步至ceph2集群上的vol1’、vol2’

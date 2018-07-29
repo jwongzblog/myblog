@@ -18,7 +18,7 @@
 
 对不起，我也没有完美的解决方案，不过我可以介绍一些好的产品如何解决这个问题。这些方案通常不是局部改点代码就能解决问题的，而是一开始的架构设计就考虑了这类问题。
 **语言描述太干，我贴个图吧。**
-![image.png](http://upload-images.jianshu.io/upload_images/5945542-78a2e7e71cdc7b4e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image.png](https://github.com/jwongzblog/myblog/blob/master/image/api-take-time.png)
 这是openstack云数据库组件的一个api设计，因为创建一个数据库实例最少也得两分钟，不可能让caller等待创建完毕再拿到响应结果，所以这个api是立即响应，拿到的状态是数据库实例正在创建中。后续就可以通过get请求，轮询数据库实例的状态。如果你的web想要进度条，那么你也可以在status里，多加一些数字来解决进度的问题。
 **进度条绝对比菊花的体验要好**
 
