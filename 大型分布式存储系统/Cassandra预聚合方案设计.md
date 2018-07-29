@@ -19,7 +19,7 @@
 * 自己实现一个通用定时器
 
 之前我有需求实现一个定时功能，经过一番调研没有发现合适的python开源工具，pycron也只是实现了一个类似的代理层，将python程序的定时任务转发至linux cron的功能，所以新设计的定时器要足够**通用**，具体设计思路如下：
-![image.png](https://github.com/jwongzblog/myblog/tree/master/%E5%A4%A7%E5%9E%8B%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/cassandra-join.png)
+![image.png](https://github.com/jwongzblog/myblog/tree/master/image/cassandra-join.png)
 
 如图所示，框架供分为五部分
 * produce_timer：定时任务发起者，按协议格式向消息中间件发布一个时钟，让消费者计算完毕后唤醒任务执行

@@ -3,7 +3,7 @@ Apache Cassandra是一个开源的、分布式、无中心、弹性可扩展、�
 - 可以在多节点，多机架（有关于机架的数据结构），多数据中心部署
 - 每个节点是对等的（peer to peer的模式设计），去中心化，不会存在单点失效。相反，MongoDB采用的是主从设计，主节点坏了，整个数据库无法继续正常运行
 - 通过gossip协议来维护节点的死活
-![image.png](https://github.com/jwongzblog/myblog/tree/master/%E5%A4%A7%E5%9E%8B%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/cassandra-arch1.png)
+![image.png](https://github.com/jwongzblog/myblog/tree/master/image/cassandra-arch1.png)
 # 弹性扩容
 cassandra增加或者缩减节点非常方便，无需大幅修改整个集群的配置，无需重启进程
 # 高可用与容错
@@ -13,7 +13,7 @@ Cassandra的一致性设计是遵照CAP理论（一致性、可用性、分区�
 - 严格一致性：每次写入要求所有读操作都是返回最新的写结果，要做到这一点需要加一个全局锁来确保读写顺序一致性，这样会导致写入性能非常差
 - 因果一致性：写入操作被顺序读出，确保同一个被操作的对象因果关系是能被区分开来的
 - 弱一致性（最终一致性）：所有更新将传播到整个分布式系统的每个角落，但需要时间。最终，所有副本都会是一致性的。
-![image.png](https://github.com/jwongzblog/myblog/tree/master/%E5%A4%A7%E5%9E%8B%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/cassandra-arch2.png)
+![image.png](https://github.com/jwongzblog/myblog/tree/master/image/cassandra-arch2.png)
 # 面向列
 传统的关系型数据库的存储是行式的设计，比如mysql，必须先设计数据表结构，如果某个字段没有数据，但存储依然会预留这个位置的空间。而Cassandra的数据存储结构是多维哈希表，允许随时随地增加或减少字段
 # LSM
@@ -22,7 +22,7 @@ Cassandra的一致性设计是遵照CAP理论（一致性、可用性、分区�
 snitch的工作是告诉决策者，读写操作应该落到哪个节点
 # Rings/环
 把节点连成一个环状，数据切片后落到哪个节点，通过ring做hash计算来决定
-![image.png](https://github.com/jwongzblog/myblog/tree/master/%E5%A4%A7%E5%9E%8B%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/cassandra-arch3.png)
+![image.png](https://github.com/jwongzblog/myblog/tree/master/image/cassandra-arch3.png)
 
 # partitioners
 这个模块是用来计算数据分发到那个节点的
@@ -44,10 +44,10 @@ W+R<=N=最终一致性
 
 # query and coordinator node/协调者
 每个被查询的节点既是协调者，可以决定query的动作落到哪个副本
-![image.png](https://github.com/jwongzblog/myblog/tree/master/%E5%A4%A7%E5%9E%8B%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/cassandra-arch4.png)
+![image.png](https://github.com/jwongzblog/myblog/tree/master/image/cassandra-arch4.png)
 # Memtables,SSTables,commit logs
 写操作会直接写入至commit log，才被标记写成功了，commit log不会被client直接读，只有节点恢复时，需要恢复数据的数据才从commit log读取。写操作一般被记录在memtable，当达到一定的阈值时，才被flush至SSTable。此时commit log响应数据被标记成0，当达到阈值时清理掉。SSTable借鉴了google bigtable，它是压缩的数据，不再被应用修改直至被merged（压紧操作时，SSTable的键值合并，列被组合，丢弃  tombstone/假删除，创建新索引），后续的读（read）操作会结合SSTable和memtable的数据给出结果
-![image.png](https://github.com/jwongzblog/myblog/tree/master/%E5%A4%A7%E5%9E%8B%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/cassandra-arch5.png)
+![image.png](https://github.com/jwongzblog/myblog/tree/master/image/cassandra-arch5.png)
 
 # hinted handoff/提示移交
 出现故障时，部分节点无法响应，这个时候Cassandra会创建一个提示备忘，即要求节点恢复时通知请求者，那时，请求者会重新发送write opration。此机制借鉴至Amazon Dynamo
