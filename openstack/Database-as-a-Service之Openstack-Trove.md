@@ -43,6 +43,6 @@
 - vertica
 # 一张简要的架构图，解释一下我为什么说trove的架构简单粗暴
 
-![image.png](http://upload-images.jianshu.io/upload_images/5945542-483a720902e4b994.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image.png](https://github.com/jwongzblog/myblog/blob/master/openstack/Database-as-a-Service-Openstack-Trove.png)
 看上图trove所处的位置。。。
 所有的特性包括租户隔离，高可用，autoscaling，高并发......都依赖openstack子模块的能力，似乎他们也具备这样的能力，但是子模块能力的极限，也就是trove的极限
