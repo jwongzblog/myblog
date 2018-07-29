@@ -4,7 +4,7 @@ based on tornado 4.5.2
 
 tornado代码不足一万五千行，麻雀虽小五脏俱全，使用他的异步模型，代码复杂一点点，但无需依赖nginx就具备高并发能力，这得益于他的coroutine（协程）装饰器以及epoll网络模型，coroutine可以让我们使用同步的语义实现异步的功能，代码可读性大大提升，具体原理后面再讲。
 
-tornado网络通信采用epoll模型，简单介绍一下epoll，在《[openstack模式设计-消息中间件](http://www.jianshu.com/p/5048e4744a84)》中简单提到了I/O模型，epoll是Linux下多路复用IO接口select/poll的增强版本，它能显著提高程序在大量并发连接中只有少量活跃的情况下的系统CPU利用率。举个简单的例子，比如你在京东上想买个东西，结果没货，你会怎么做？肯定不会是每隔一阵子去看看到货了没，正确的做法是点击“到货通知”，让京东的系统在货物到仓时及时短信通知你。epoll也是这样，server端在处理网络请求是，无需等待数据是否写满buffer，只需将这些socket以红黑树（一种数据结构）的方式写进内核里，另外还有epoll_wait会定时检查这些注册的事件对应的数据是否准备就绪（链表存储），如果好了就唤醒对应的回调函数。
+tornado网络通信采用epoll模型，简单介绍一下epoll，在《[openstack模式设计-消息中间件](https://github.com/jwongzblog/myblog/blob/master/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/openstack%E6%A8%A1%E5%BC%8F%E8%AE%BE%E8%AE%A1-%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6.md)》中简单提到了I/O模型，epoll是Linux下多路复用IO接口select/poll的增强版本，它能显著提高程序在大量并发连接中只有少量活跃的情况下的系统CPU利用率。举个简单的例子，比如你在京东上想买个东西，结果没货，你会怎么做？肯定不会是每隔一阵子去看看到货了没，正确的做法是点击“到货通知”，让京东的系统在货物到仓时及时短信通知你。epoll也是这样，server端在处理网络请求是，无需等待数据是否写满buffer，只需将这些socket以红黑树（一种数据结构）的方式写进内核里，另外还有epoll_wait会定时检查这些注册的事件对应的数据是否准备就绪（链表存储），如果好了就唤醒对应的回调函数。
 
 回到协程，看看tornado建议程序员的写法
 ```
@@ -234,8 +234,8 @@ Move the work out of the tornado process. If you're sending email, for example, 
 Block the IOLoop anyway. This is the lazy way out but may be acceptable in some cases.
 ```
 
-到此tornado单进程的协程用法展示完毕，那么如何在这个单进程里启动多线程来处理协程了？此处为胡俊同学整理，想认识这位青年才俊可以私我
-![image.png](http://upload-images.jianshu.io/upload_images/5945542-cf3111482de26e2e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+到此tornado单进程的协程用法展示完毕，那么如何在这个单进程里启动多线程来处理协程了？此处为胡俊同学整理，
+![image.png](https://github.com/jwongzblog/myblog/blob/master/python/python-trove.png)
 
 上面的代码利用concurrent.futures，在python2.7中需要download库，但是在python3中集成了该库，这也是官方推荐的处理异步的方式
 
