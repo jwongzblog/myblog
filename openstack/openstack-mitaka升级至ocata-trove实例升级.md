@@ -124,14 +124,23 @@ trave backup-list-instance
 trove backup-show
 trove user-create ${instance-id} wangjun trove.com --host xxxx  --databases xxxx
 trove user-list ${instance-id}
+
 新建trove datastore/trove实例等验证：
+
 trove create ${instance-name} ${flavor} --size 10 --datastore ${datastore-name} --datastore_version ${datastore-version} --nic net-id=${net-id}
 trove create ${instance-replica-name} ${flavor} --size 10 --datastore ${datastore-name} --datastore_version ${datastore-version} --nic net-id=${net-id}   --replica_of  ${master-id}
+
 验证trove实例升级：
+
 验证数据库是否正常运行，验证数据库表及数据
 select * from instances where deleted = '0';
+
 其他说明：
+
 O 版本新特性：
+
 specs: [https://specs.openstack.org/openstack/trove-specs/specs/newton/instance-upgrade.html](https://specs.openstack.org/openstack/trove-specs/specs/newton/instance-upgrade.html)
+
 BP: [https://blueprints.launchpad.net/trove/+spec/instance-upgrade](https://blueprints.launchpad.net/trove/+spec/instance-upgrade)
+
 Commit : [https://review.openstack.org/#/c/326064/](https://review.openstack.org/#/c/326064/)

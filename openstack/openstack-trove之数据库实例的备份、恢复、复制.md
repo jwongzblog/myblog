@@ -2,7 +2,7 @@ trove支持数据库实例的备份、增量备份（目前只有mysql、mariaDB
 
 # 运行架构如下所示
 
-![image.png](http://upload-images.jianshu.io/upload_images/5945542-862312395b019226.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image.png](https://github.com/jwongzblog/myblog/blob/master/openstack/trove-backup-restore.png)
 
 # 实例恢复/复制的具体过程大致如下：
 - 首先创建一个备份任务，将通知到Guest Agent（缩写：GA），GA会根据数据库实例类型加载对应的驱动，然后将需要备份的文件一股脑拷贝至swift对象存储中

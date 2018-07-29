@@ -1,4 +1,4 @@
-[前面](http://www.jianshu.com/p/410551f9a804)简单介绍了一下DBaas服务编排，我们渴望在生态中为客户提供优质的DBaas服务，具体怎么让客户用的舒心，用的放心，是衡量一个产品优劣的标准，那么我们看看trove能否值得期待。架构上之前有简单的[浅析](http://www.jianshu.com/p/6dc8f69db86b)，充分利用了openstack的优势，设计讨巧。这里，我想就功能上和阿里云RDS对比一下，在这个过程中，我发现功能的吻合度高达90%以上，不知道这些产品经理是不是互相copy的。
+[前面](https://github.com/jwongzblog/myblog/blob/master/openstack/Database-as-a-Service%E4%B9%8BOpenstack-Trove.md)简单介绍了一下DBaas服务编排，我们渴望在生态中为客户提供优质的DBaas服务，具体怎么让客户用的舒心，用的放心，是衡量一个产品优劣的标准，那么我们看看trove能否值得期待。架构上之前有简单的[浅析](hhttps://github.com/jwongzblog/myblog/blob/master/openstack/trove%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%88%E4%B8%80%EF%BC%89.md)，充分利用了openstack的优势，设计讨巧。这里，我想就功能上和阿里云RDS对比一下，在这个过程中，我发现功能的吻合度高达90%以上，不知道这些产品经理是不是互相copy的。
 
 当然，功能吻合不代表技术实力也吻合，毕竟大公司养了那么多技术人员。虽然openstack社区也有几千个代码贡献者，搞不好还包括阿里云的coder，但是这些企业，包括华三等，**受益于开源而不太愿意将最核心的优化贡献反哺社区，最后各玩各的。企业具备天生的垄断属性，用他们自己的话来讲就是建造技术壁垒，护城河...在中国，互相抄袭而无惩罚措施的技术环境下，企业和技术人员，拼的是极其细分领域的东西。**
 
