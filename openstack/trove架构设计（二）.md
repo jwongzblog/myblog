@@ -1,11 +1,11 @@
-在[trove架构设计（一）](http://www.jianshu.com/writer#/notebooks/14249195/notes/18851465)中讲举例了一个最简单的call模式（同步），这篇介绍复杂点的cast模式（异步模式），看看trove在处理耗时、等待的任务请求时如何处理
+在[trove架构设计（一）](https://github.com/jwongzblog/myblog/blob/master/openstack/trove%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%EF%BC%88%E4%B8%80%EF%BC%89.md)中讲举例了一个最简单的call模式（同步），这篇介绍复杂点的cast模式（异步模式），看看trove在处理耗时、等待的任务请求时如何处理
 看看下图的工作流
 
-![image.png](http://upload-images.jianshu.io/upload_images/5945542-ebbdea43ba72fc50.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image.png](https://github.com/jwongzblog/myblog/blob/master/openstack/trove-arch3.png)
 
 上面的图不顺畅的话再看看这个时序图
 
-![image.png](http://upload-images.jianshu.io/upload_images/5945542-f3f6a0767e583286.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image.png](https://github.com/jwongzblog/myblog/blob/master/openstack/trove-arch4.png)
 我们举个创建实例的例子（trove create）
 1.接受创建实例的请求。/trove/instance/service.py
 ```

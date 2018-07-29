@@ -1,10 +1,10 @@
 trove组件总共分为trove api、trove conductor、trove taskmanager以及部署在实例内部的trove gust agent，他们之间的通信规则如下图所示
 
-![image.png](http://upload-images.jianshu.io/upload_images/5945542-4dc91ae219b60f4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image.png](https://github.com/jwongzblog/myblog/blob/master/openstack/trove-arch1.png)
 
 先以trove show为例，讲解一下最为简单的call模式
 
-![image.png](http://upload-images.jianshu.io/upload_images/5945542-c759429006552219.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![image.png](https://github.com/jwongzblog/myblog/blob/master/openstack/trove-arch2.png)
 下面的代码show了一把消息中间-RPC的用法，代码逻辑如下：
 1.api响应。/trove/instance/service.py
 ```
