@@ -1,16 +1,16 @@
 在openstack的ops中，经常碰到多个环境切来切去执行相关命令的情况，最纠结的是可能会出现批量的环境需要重复的执行一组操作，作为程序员，重复是最大的浪费。解决了这个问题后，总结出几个小技巧来解决这个问题。
 
-#背景
+# 背景
 openstackM版升级至O版，租户的trove实例需要批量升级
-#远程执行一条命令
+# 远程执行一条命令
 
 `ssh nick@xxx.xxx.xxx.xxx "df -h"`
 # 远程执行多条命令
-####方法一：
+#### 方法一：
 
 `ssh nick@xxx.xxx.xxx.xxx "pwd; cat hello.txt"`
 作为处女座情节的非处女座程序员无法忍受这样的书写格式
-####方法二：
+#### 方法二：
 ```
 ssh nick@xxx.xxx.xxx.xxx "pwd
 > cat hello.txt
@@ -25,7 +25,7 @@ ssh nick@xxx.xxx.xxx.xxx "
 > echo $name
 > "
 ```
-####方法三：
+#### 方法三：
 ```
 ssh root@xxx.xx.xx.xx > /dev/null 2>&1 << eeooff
 cd /home
