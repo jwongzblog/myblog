@@ -13,7 +13,7 @@ Cassandra的一致性设计是遵照CAP理论（一致性、可用性、分区�
 - 严格一致性：每次写入要求所有读操作都是返回最新的写结果，要做到这一点需要加一个全局锁来确保读写顺序一致性，这样会导致写入性能非常差
 - 因果一致性：写入操作被顺序读出，确保同一个被操作的对象因果关系是能被区分开来的
 - 弱一致性（最终一致性）：所有更新将传播到整个分布式系统的每个角落，但需要时间。最终，所有副本都会是一致性的。
-![image.png](https://github.com/jwongzblog/myblog/tree/master/image/cassandra-arch2.png)
+![image.png](https://github.com/jwongzblog/myblog/blob/master/image/cassandra-arch2.png)
 # 面向列
 传统的关系型数据库的存储是行式的设计，比如mysql，必须先设计数据表结构，如果某个字段没有数据，但存储依然会预留这个位置的空间。而Cassandra的数据存储结构是多维哈希表，允许随时随地增加或减少字段
 # LSM
