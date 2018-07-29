@@ -235,7 +235,7 @@ Block the IOLoop anyway. This is the lazy way out but may be acceptable in some 
 ```
 
 到此tornado单进程的协程用法展示完毕，那么如何在这个单进程里启动多线程来处理协程了？此处为胡俊同学整理，
-![image.png](https://github.com/jwongzblog/myblog/blob/master/python/python-trove.png)
+![image.png](https://github.com/jwongzblog/myblog/blob/master/python/python-tornado.png)
 
 上面的代码利用concurrent.futures，在python2.7中需要download库，但是在python3中集成了该库，这也是官方推荐的处理异步的方式
 
