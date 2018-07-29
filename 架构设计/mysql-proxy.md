@@ -2,12 +2,12 @@ mysql proxy是mysql官方开发的一款代理软件，主要达到对mysql serv
 
 github源码地址：https://github.com/mysql/mysql-proxy
 
-#工作原理如图所示：
+# 工作原理如图所示：
 ![image.png](https://upload-images.jianshu.io/upload_images/5945542-1e7f0b83f28cc8e9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
-#源码安装
-###依赖
+# 源码安装
+### 依赖
 • libevent 1.4 or higher.
 • lua 5.1.x only. lua 5.2.x is not currently supported.
 • glib2 2.16.0 or higher.
@@ -18,7 +18,7 @@ github源码地址：https://github.com/mysql/mysql-proxy
 • flex 2.5.37.
 • gtk-doc 1.18.
 • MySQL 5.0.x or higher developer files.
-###安装
+### 安装
 ```
 # tar zxf mysql-proxy-0.8.5.tar.gz
 # cd mysql-proxy-0.8.5
@@ -27,8 +27,8 @@ github源码地址：https://github.com/mysql/mysql-proxy
 # make check
 # make install
 ```
-#使用方式
-###命令行方式
+# 使用方式
+### 命令行方式
 ```
 # mysql-proxy --proxy-read-only-backend-addresses=192.168.0.1:3306 --proxy-read-only-backend-address=192.168.0.2:3306
 or
@@ -37,7 +37,7 @@ or
 or
 # mysql-proxy --proxy-backend-addresses 192.168.0.3:3306,192.168.0.4:3306
 ```
-###配置文件方式：
+### 配置文件方式：
 ```
 #mysql-proxy  $configuration-file --defaults-file $file-location
 
@@ -56,7 +56,7 @@ log-level=info #定义log日志级别，由高到低分别有(error|warning|info
 daemon=true    #以守护进程方式运行
 keepalive=true  #负载较高时，mysql-proxy进程容易崩溃，使用keepalive确保HA
 ```
-#集成lua脚本
+# 集成lua脚本
 集成自己编写的lua脚本可以处理sql注入、分库分表的问题，有一定的开发量
 ```
 if string.lower(command) == "show" and string.lower(option) == "querycounter" then
@@ -91,5 +91,7 @@ elseif string.lower(command) == "show" and string.lower(option) == "myerror" the
     return proxy.PROXY_SEND_RESULT
 ```
 参考至：
+
 https://downloads.mysql.com/docs/mysql-proxy-en.pdf
+
 http://blog.jobbole.com/94606/
