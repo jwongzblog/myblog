@@ -1,5 +1,5 @@
 # myblog
-在区块链未大面积普及之前，GitHub大概是最好的托管平台了，墙内能自由发声的平台不多了
+墙内已经无法自由发声，但愿我们还在追求自由意志
 
 # BigData
 - [浅谈时间序列数据库（一）](https://github.com/jwongzblog/myblog/blob/master/BigData/%E6%B5%85%E8%B0%88%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%88%E4%B8%80%EF%BC%89.md)
