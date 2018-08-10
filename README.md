@@ -5,9 +5,9 @@
 - [浅谈时间序列数据库（一）](https://github.com/jwongzblog/myblog/blob/master/BigData/%E6%B5%85%E8%B0%88%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%88%E4%B8%80%EF%BC%89.md)
 - [浅谈时间序列数据库（二）](https://github.com/jwongzblog/myblog/blob/master/BigData/%E6%B5%85%E8%B0%88%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%88%E4%BA%8C%EF%BC%89.md)
 # openstack 
-- Database-as-a-Service技术预研.md
-- Database-as-a-Service之Openstack-Trove.md
-- docker是个好东西，但openstack--kolla并不能解决OS升级的复杂度.md
+- [Database-as-a-Service技术预研.md](https://github.com/jwongzblog/myblog/blob/master/openstack/Database-as-a-Service技术预研.md)
+- [Database-as-a-Service之Openstack-Trove.md](https://github.com/jwongzblog/myblog/blob/master/openstack/Database-as-a-Service之Openstack-Trove.md)
+- [docker是个好东西，但openstack--kolla并不能解决OS升级的复杂度.md](https://github.com/jwongzblog/myblog/blob/master/openstack/docker是个好东西，但openstack--kolla并不能解决OS升级的复杂度.md)
 - ironic-network-租户间网络隔离.md
 - openstack-ironic-Raid-管理.md
 - openstack-ironic-troubleshooting.md
