@@ -35,7 +35,7 @@
 - 小公司如何从数据挖掘分一杯羹.md
 - 需求倒是能做哦，但要给我三个月.md
 - 作为一名wower，游戏可以分为魔兽世界和其他.md
-- 创新者的窘境.md
+- [创新者的窘境.md](https://github.com/jwongzblog/myblog/blob/master/产品的思考/创新者的窘境.md)
 
 # 架构设计
 - mysql-proxy.md                          
