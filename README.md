@@ -65,6 +65,7 @@
 - [vs2008有个BUG-winNT-h找不到符号__readfsdword.md](https://github.com/jwongzblog/myblog/blob/master/openstack/c%2B%2B/vs2008有个BUG-winNT-h找不到符号__readfsdword.md)
 - [单元测试Mock之c++-gmock实现原理.md](https://github.com/jwongzblog/myblog/blob/master/c%2B%2B/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95Mock%E4%B9%8Bc%2B%2B-gmock%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.md)
 - [在linux使用openldap-library进行二次开发.md](https://github.com/jwongzblog/myblog/blob/master/openstack/c%2B%2B/在linux使用openldap-library进行二次开发.md)
+- [为什么c++很难](https://github.com/jwongzblog/myblog/blob/master/c%2B%2B/%E4%B8%BA%E4%BB%80%E4%B9%88c%2B%2B%E5%BE%88%E9%9A%BE.md)
 
 # python
 - [cx_freeze打包出错：runtimeerror-maximum-recursion-depth-exceeded.md](https://github.com/jwongzblog/myblog/blob/master/openstack/python/cx_freeze打包出错：runtimeerror-maximum-recursion-depth-exceeded.md)
