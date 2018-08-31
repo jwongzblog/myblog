@@ -1,5 +1,5 @@
 # Redis
-1.redis自身支持replication、cluster模式
+######redis自身支持replication、cluster模式
 trove redis也实现了上面两种模式
 
 - replication：https://specs.openstack.org/openstack/trove-specs/specs/liberty/redis-replication.html
