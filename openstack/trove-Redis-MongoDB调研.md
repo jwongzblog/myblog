@@ -1,4 +1,4 @@
-#Redis
+# Redis
 1.redis自身支持replication、cluster模式
 trove redis也实现了上面两种模式
 
@@ -30,7 +30,7 @@ enable_root()/disable_root()/get_root_password()// Queen版支持
 4.待测试
 我需要测试确认是否同时支持集群模式和主从模式
 
-#MongoDB
+# MongoDB
 1.trove MongoDB支持创建集群、扩展集群、新增shard
 - 创建集群：https://wiki.openstack.org/wiki/Trove/Clusters-MongoDB#Secondary_Members_and_Arbiters
 - 扩展集群：https://specs.openstack.org/openstack/trove-specs/specs/liberty/cluster-scaling.html
@@ -63,7 +63,7 @@ trove MongoDB创建集群时默认创建3个实例，每个实例分别部署了
 ![image.png](https://github.com/jwongzblog/myblog/blob/master/openstack/trove-mongo-arch.png)
 
 
-#结论
+# 结论
 - 从数据库的架构复杂度来讲，redis特性更简单，易集成，可以优先测试，至于MongoDB，仍需要花点时间熟悉这个数据库的底层架构及特性
 - 目前还不清楚是否适配nosql的所有版本
 - 没有实现upgrade，无法更新数据库
