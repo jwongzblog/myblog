@@ -52,8 +52,9 @@
 - [openstack-trove支持mysql5-7.md](https://github.com/jwongzblog/myblog/blob/master/openstack/openstack-trove支持mysql5-7.md)
 - [openstack-web框架.md](https://github.com/jwongzblog/myblog/blob/master/openstack/openstack-web框架.md)
 - [openstack创建实例出现_no-valid-host_（一）.md](https://github.com/jwongzblog/myblog/blob/master/openstack/openstack创建实例出现_no-valid-host_（一）.md)
-- [trove架构设计（二）.md](https://github.com/jwongzblog/myblog/blob/master/openstack/trove架构设计（二）.md)
 - [trove架构设计（一）.md](https://github.com/jwongzblog/myblog/blob/master/openstack/trove架构设计（一）.md)
+- [trove架构设计（二）.md](https://github.com/jwongzblog/myblog/blob/master/openstack/trove架构设计（二）.md)
+- [trove-Redis-MongoDB调研.md](https://github.com/jwongzblog/myblog/blob/master/openstack/trove-Redis-MongoDB%E8%B0%83%E7%A0%94.md)
 - [融入的openstack正确姿势.md](https://github.com/jwongzblog/myblog/blob/master/openstack/融入的openstack正确姿势.md)
 - [云数据库调优（一）.md](https://github.com/jwongzblog/myblog/blob/master/openstack/云数据库调优（一）.md)
 
