@@ -58,7 +58,9 @@ is_shard_active()
 ![image.png](https://github.com/jwongzblog/myblog/blob/master/openstack/ali-mongo-arch.png)
 
 ### trove MongoDB允许的集群架构
-trove MongoDB创建集群时默认创建3个replica_set实例，根据全局conf生成若干Mongos(queryRouter)、configServer实例，允许继续新增shard及其replica set：
+- trove MongoDB创建集群时默认创建3个replica_set实例
+- 根据全局conf生成若干Mongos(queryRouter)、configServer实例
+- 允许继续新增shard及其replica set，每次新增shard，会新创建等量的replica_set实例
 
 ![image.png](https://github.com/jwongzblog/myblog/blob/master/openstack/trove-mongo-arch.png)
 
