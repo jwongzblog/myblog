@@ -27,7 +27,7 @@ enable_root()/disable_root()/get_root_password()// Queen版支持
 ```
 
 ### 待测试
-我需要测试确认是否同时支持集群模式和主从模式
+需要测试确认是否同时支持集群模式和主从模式
 
 # MongoDB
 ### trove MongoDB支持创建集群、扩展集群、新增shard
