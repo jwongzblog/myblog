@@ -10,8 +10,8 @@ trove redis也实现了上面两种模式
 - 集群模式：节点任意扩展，满足客户高负载
 
 ### trove redis备份与恢复
-https://specs.openstack.org/openstack/trove-specs/specs/liberty/redis-backup-restore.html
-利用trove-schedule可以实现定时备份，保证数据安全
+- https://specs.openstack.org/openstack/trove-specs/specs/liberty/redis-backup-restore.html
+- 利用trove-schedule可以实现定时备份，保证数据安全
 
 ### redis-guestagent实现的接口有：
 ```
@@ -37,8 +37,8 @@ enable_root()/disable_root()/get_root_password()// Queen版支持
 
 
 ### trove MongoDB单实例的备份与恢复
-https://specs.openstack.org/openstack/trove-specs/specs/liberty/mongodb-backup-restore.html
-利用trove-schedule可以实现定时备份，保证数据安全
+- https://specs.openstack.org/openstack/trove-specs/specs/liberty/mongodb-backup-restore.html
+- 利用trove-schedule可以实现定时备份，保证数据安全
 
 ### MongoDB-guestagent实现的接口有：
 ```
