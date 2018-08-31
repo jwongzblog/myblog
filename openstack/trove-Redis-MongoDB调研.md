@@ -59,6 +59,7 @@ is_shard_active()
 
 ### trove MongoDB允许的集群架构
 trove MongoDB创建集群时默认创建3个实例，每个实例分别部署了Mongos(queryRouter)、configServer、sharding replica set，允许继续新增shard及其replica set：
+
 ![image.png](https://github.com/jwongzblog/myblog/blob/master/openstack/trove-mongo-arch.png)
 
 
