@@ -35,6 +35,15 @@ systemctl start mysqld.service
 systemctl status mysqld.service
 ```
 # 部署openstack-trove-guestagent服务
+##### 添加trove用户
+```
+/*useradd -u <old_uid> -g <old_gid> -d /home/trove*/否则会导致upgrade后对拷贝的文件夹没有权限，目前uid、gid都是1000
+groupadd -g 1000 trove
+useradd -u 1000 -g 1000 -d /home/trove -m trove
+passwd -d trove
+sudo usermod trove -a -G wheel
+```
+
 如果继续使用centos官方源，那么这个服务将会是最新的Q版，尽管trove的源码很久没大规模变动了，但如果trove其他组件还是较老的版本，那么trove依赖包会有一些问题，比如我们定制的代码依赖了tenant id去命名，结果最新的openstack把tenant_id给过滤了，导致代码无法正常工作，此时就需要改动yum源信息，指向公司内部归档的yum源码
 ###### 改动yum.repos.d，指向内部源
 执行
@@ -49,12 +58,7 @@ sudo pip uninstall trove
 sudo python setup.py install /*如果提升git没安装，执行yum -y install git*/
 sudo systemctl start openstack-trove-guestagent
 ```
-##### 添加trove用户
-```
-adduser trove
-passwd -d trove
-sudo usermod trove -a -G wheel
-```
+
 ##### 配置trove-guestagent服务启动，修改/usr/lib/systemd/system/openstack-trove-guestagent.service
 ```
 [Unit]                                                                                                                                                                                         
