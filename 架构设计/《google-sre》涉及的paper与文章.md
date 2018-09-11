@@ -70,9 +70,9 @@
 
 # Trace
 - How Complex Systems Fail[link](http://101.96.10.63/web.mit.edu/2.75/resources/random/How%20Complex%20Systems%20Fail.pdf)
-- 大型分布式跟踪系统Dapper, a Large-Scale Distributed Systems Tracing Infrastructure[link](https://static.googleusercontent.com/media/research.google.com/zh-CN//archive/papers/dapper-2010-1.pdf)
-- 分布式跟踪系统设计So, you want to trace your distributed system?Key design insights from years of practical experience[link](http://www.pdl.cmu.edu/PDL-FTP/SelfStar/CMU-PDL-14-102.pdf)
-- 最近修改可能导致的问题Trade-Offs Under Pressure: Heuristics and Observations Of Teams Resolving Internet Service Outages[link](https://lup.lub.lu.se/student-papers/search/publication/8084520)
+- 大型分布式跟踪系统：Dapper, a Large-Scale Distributed Systems Tracing Infrastructure[link](https://static.googleusercontent.com/media/research.google.com/zh-CN//archive/papers/dapper-2010-1.pdf)
+- 分布式跟踪系统设计：So, you want to trace your distributed system?Key design insights from years of practical experience[link](http://www.pdl.cmu.edu/PDL-FTP/SelfStar/CMU-PDL-14-102.pdf)
+- 最近修改可能导致的问题：Trade-Offs Under Pressure: Heuristics and Observations Of Teams Resolving Internet Service Outages[link](https://lup.lub.lu.se/student-papers/search/publication/8084520)
 - Toyota Production System: Beyond Large-Scale Production[link](https://www.amazon.com/Toyota-Production-System-Beyond-Large-Scale/dp/0915299143)
 - Root Cause Analysis For Beginners[link](https://mycourses.aalto.fi/pluginfile.php/652713/mod_resource/content/1/Root_Cause_Analysis_For_Beginn.pdf)
 
@@ -104,8 +104,7 @@ Capacity Planning[link](https://www.usenix.org/publications/login/feb15/capacity
 - The Part-Time Parliament[link](https://lamport.azurewebsites.net/pubs/lamport-paxos.pdf)
 - Fast paxos[link](https://www.microsoft.com/en-us/research/publication/fast-paxos/)
 - Paxos Quorum Leases: Fast Reads Without Sacrificing Writes[link](http://www.pdl.cmu.edu/PDL-FTP/associated/moraru-socc14.pdf)
-
-缺陷:共同接受的节点数是法定人数-总数一半再加一，任何节点可能都没有一个完整的视图，不知道目前已经被接收的所有值
+- 缺陷:共同接受的节点数是法定人数-总数一半再加一，任何节点可能都没有一个完整的视图，不知道目前已经被接收的所有值
 
 ##### raft
 - Mencius: Building Efficient Replicated State Machines for WANs[link](http://101.96.10.63/www.sysnet.ucsd.edu/~yamao/pub/mencius-osdi.pdf)
