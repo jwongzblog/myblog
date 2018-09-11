@@ -1,5 +1,5 @@
 # myblog
-墙内已经无法自由发声，但愿我们还在追求[自由意志](https://github.com/jwongzblog/myblog/blob/master/openstack/生活若干/浅论自由意志.md)
+墙内已经无法自由发声，但愿我们还在追求[自由意志](https://github.com/jwongzblog/myblog/blob/master/生活若干/浅论自由意志.md)
 
 # golang
 - [go-channel实现事件驱动的异步模型(async).md](https://github.com/jwongzblog/myblog/blob/master/openstack/golang/go-channel实现事件驱动的异步模型(async).md)
