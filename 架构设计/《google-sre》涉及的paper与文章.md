@@ -120,7 +120,7 @@
 ##### 构建大型分布式系统的软件工程建议-jeff dean 
 - [Software Engineering Advice from Building Large-Scale Distributed Systems](https://static.googleusercontent.com/media/research.google.com/zh-CN//people/jeff/stanford-295-talk.pdf)
 
-#sre
+# sre
 - [The Systems Engineering Side of Site Reliability Engineering](https://www.usenix.org/publications/login/june15/hixson)
 - [Work Rules!: Insights from Inside Google That Will Transform How You Live and Lead](https://www.amazon.com/Work-Rules-Insights-Inside-Transform/dp/1455554790)
 - [Hiring Site Reliability Engineers](https://www.usenix.org/publications/login/june15/hiring-site-reliability-engineers)
