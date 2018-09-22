@@ -1,5 +1,5 @@
 # myblog
-墙内已经无法自由发声，但愿我们还在追求[自由意志](https://github.com/jwongzblog/myblog/blob/master/openstack/生活若干/浅论自由意志.md)
+墙内已经无法自由发声，但愿我们还在追求[自由意志](https://github.com/jwongzblog/myblog/blob/master/%E7%94%9F%E6%B4%BB%E8%8B%A5%E5%B9%B2/%E6%B5%85%E8%AE%BA%E8%87%AA%E7%94%B1%E6%84%8F%E5%BF%97.md)
 
 # golang
 - [go-channel实现事件驱动的异步模型(async).md](https://github.com/jwongzblog/myblog/blob/master/openstack/golang/go-channel实现事件驱动的异步模型(async).md)
@@ -12,6 +12,7 @@
 - [浅谈异步处理.md](https://github.com/jwongzblog/myblog/blob/master/openstack/架构设计/浅谈异步处理.md)
 - [大型网站技术架构-核心原理与案例分析.md](https://github.com/jwongzblog/myblog/blob/master/openstack/架构设计/大型网站技术架构-核心原理与案例分析.md)
 - [漫谈异常处理.md](https://github.com/jwongzblog/myblog/blob/master/openstack/编程思想/漫谈异常处理.md)
+- [《google-sre》涉及的paper与文章.md](https://github.com/jwongzblog/myblog/blob/master/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/%E3%80%8Agoogle-sre%E3%80%8B%E6%B6%89%E5%8F%8A%E7%9A%84paper%E4%B8%8E%E6%96%87%E7%AB%A0.md)
 
 # 设计模式
 - openstack模式设计解析-序.md     
