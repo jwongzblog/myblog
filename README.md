@@ -56,6 +56,7 @@
 - [trove架构设计（一）.md](https://github.com/jwongzblog/myblog/blob/master/openstack/trove架构设计（一）.md)
 - [trove架构设计（二）.md](https://github.com/jwongzblog/myblog/blob/master/openstack/trove架构设计（二）.md)
 - [trove-Redis-MongoDB调研.md](https://github.com/jwongzblog/myblog/blob/master/openstack/trove-Redis-MongoDB%E8%B0%83%E7%A0%94.md)
+- [trove-redis镜像制作.md](https://github.com/jwongzblog/myblog/blob/master/openstack/trove-redis%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C.md)
 - [融入的openstack正确姿势.md](https://github.com/jwongzblog/myblog/blob/master/openstack/融入的openstack正确姿势.md)
 - [云数据库调优（一）.md](https://github.com/jwongzblog/myblog/blob/master/openstack/云数据库调优（一）.md)
 
