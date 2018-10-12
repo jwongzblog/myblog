@@ -11,7 +11,7 @@ su -s /bin/sh -c "trove-manage  --config-file /etc/trove/trove.conf datastore_up
 su -s /bin/sh -c "trove-manage --config-file /etc/trove/trove.conf  datastore_version_update   redis 4.0-az1 redis 'f3749524-fea7-4754-86b1-f26f2efc1f77'  ''  1" trove
 ```
 
-###ÐÞ¸Ä/etc/trove/trove.conf
+### ÐÞ¸Ä/etc/trove/trove.conf
 ```
 volume_support = False
 ```
