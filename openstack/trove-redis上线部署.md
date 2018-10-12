@@ -1,5 +1,5 @@
 ### 各AZ上传redis镜像
-### 镜像制作参考制作trove-redis镜像（基于我们自己的Centos7系统）方法
+### 镜像制作参考[此处](https://github.com/jwongzblog/myblog/blob/master/openstack/trove-redis%E9%95%9C%E5%83%8F%E5%88%B6%E4%BD%9C.md)
 
 ### 创建datastore及datastore-version
 ```
