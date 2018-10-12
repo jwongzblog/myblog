@@ -1,6 +1,6 @@
-# 下载基础镜像
-# 通过virsh启动镜像
-# 安装redis
+### 下载基础镜像
+### 通过virsh启动镜像
+### 安装redis
 ```
 sudo yum install redis
 sudo systemctl start redis
@@ -22,7 +22,7 @@ pip2 install hiredis
 protected-mode no
 ```
 
-# 安装openstack-trove-guestagent
+### 安装openstack-trove-guestagent
 
 ```
 添加trove用户
@@ -36,7 +36,7 @@ sed -i -e 's/^Defaults.*requiretty/# Defaults requiretty/g' /etc/sudoers
 yum -y install openstack-trove-guestagent python-troveclient python-netifaces
 ```
 
-## 卸载openstack-trove-guestagent，使用源码安装openstack-trove-guestagent
+###### 卸载openstack-trove-guestagent，使用源码安装openstack-trove-guestagent
 ```
 sudo systemctl stop openstack-trove-guestagent
 sudo pip uninstall trove /*yum -y install python-pip*/
@@ -44,9 +44,9 @@ sudo python setup.py install /*如果提升git没安装，执行yum -y install git*/
 sudo systemctl start openstack-trove-guestagent
 ```
 
-## 配置trove-guestagent
+###### 配置trove-guestagent
 
-## 修改/usr/lib/systemd/system/openstack-trove-guestagent.service 为如下：
+###### 修改/usr/lib/systemd/system/openstack-trove-guestagent.service 为如下：
 
 [Unit]
 Description=OpenStack Trove Guest
@@ -61,7 +61,7 @@ RestartSec=2s
 WantedBy=multi-user.target
  
 
-## 执行：
+###### 执行：
 ```
 chown trove:trove /etc/trove
 chown trove:trove /usr/share/trove
@@ -74,9 +74,9 @@ chmod 0755 /etc/trove/conf.d/guest_info.conf
 chown trove:trove /etc/trove/conf.d/trove-guestagent.conf
 chown trove:trove /etc/trove/conf.d/guest_info.conf
 ```
-## 修改：/etc/trove/conf.d/guest_info.conf，添加guest_id=none
+###### 修改：/etc/trove/conf.d/guest_info.conf，添加guest_id=none
 
-## 修改：vim /etc/trove/conf.d/trove-guestagent.conf  ，将trove-logging-guestagent.conf注释掉
+###### 修改：vim /etc/trove/conf.d/trove-guestagent.conf  ，将trove-logging-guestagent.conf注释掉
 
 在DEFAULT中添加
 ```
@@ -87,7 +87,7 @@ systemctl start openstack-trove-guestagent.service
 systemctl status openstack-trove-guestagent.service
 ``` 
 
-# 配置系统参数
+### 配置系统参数
 
 ```
 sed -i -r 's/^\s*#(net\.ipv4\.ip_forward=1.*)/\1/' /etc/sysctl.conf
@@ -105,11 +105,11 @@ echo 'GRUB_CMDLINE_LINUX="no_timer_check"' > /etc/default/grub
 grub2-mkconfig > /boot/grub2/grub.cfg
 ```
 
-# 清理日志
+### 清理日志
 
-## 还原yum源信息，清理导入的trove源码
+###### 还原yum源信息，清理导入的trove源码
 
-## 清理日志
+###### 清理日志
 
 ```
 rm -rf /var/lib/cloud/*
