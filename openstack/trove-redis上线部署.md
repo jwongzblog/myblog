@@ -52,5 +52,16 @@ trove create redis1010 redis.c2.small  --datastore redis --datastore_version 4.0
 trove create redis1010-repl redis.c2.small  --datastore redis --datastore_version 4.0-az1 --nic net-id=1acccaf1-a300-46f1-9766-5bfc749bc0b7 --availability_zone nova  --volume_type yc-beta-ceph-hdd-2  --replica_of  redis1010 --configuration redis-conf-repl
 ```
 
-### 未完成
-由于其他更重要的任务需要处理，暂时未调测cluster模式
+### Redis集群模式
+- trove.conf  trove-taskmanager.conf开放3个端口6379,16379,10000，供集群间同步使用
+- 修改/etc/trove/trove.conf，volume_support = True，此处和replication版本冲突，python-trove-client要求volume必须添加，trove-api又要求quota不为None，所以暂时填了True，但是trove显示的volume使用量是和flavor的ephemeral的数据量是冲突的，实例实际使用的是ephemeral的值。需继续调研，如果要统一，要分析一下flavor的ephemeral为空、volume_support = True的情况下，为什么无法创建实例
+```
+trove cluster-create redis-cluster redis 4.0-az1  --instance "flavor=redis.c2.small,volume=10,volume_type=yc-beta-ceph-hdd-2,availability_zone=nova,nic='net-id=1acccaf1-a300-46f1-9766-5bfc749bc0b7'"  --instance "flavor=redis.c2.small,volume=10,volume_type=yc-beta-ceph-hdd-2,availability_zone=nova,nic='net-id=1acccaf1-a300-46f1-9766-5bfc749bc0b7'"  --instance "flavor=redis.c2.small,volume=10,volume_type=yc-beta-ceph-hdd-2,availability_zone=nova,nic='net-id=1acccaf1-a300-46f1-9766-5bfc749bc0b7'"
+
+```
+- 测试集群
+```
+$redis-cli -c -h $IP -p $PORT
+$IP:$PORT>get hello
+"world"
+```
