@@ -60,6 +60,7 @@
 - [trove-redis上线部署.md](https://github.com/jwongzblog/myblog/blob/master/openstack/trove-redis%E4%B8%8A%E7%BA%BF%E9%83%A8%E7%BD%B2.md)
 - [融入的openstack正确姿势.md](https://github.com/jwongzblog/myblog/blob/master/openstack/融入的openstack正确姿势.md)
 - [云数据库调优（一）.md](https://github.com/jwongzblog/myblog/blob/master/openstack/云数据库调优（一）.md)
+- [cinder-replication-roadmap.md](https://github.com/jwongzblog/myblog/blob/master/openstack/cinder-replication-roadmap.md)
 
 # 生活若干
 - [浅论自由意志.md](https://github.com/jwongzblog/myblog/blob/master/openstack/生活若干/浅论自由意志.md)
