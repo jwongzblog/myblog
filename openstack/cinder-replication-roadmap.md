@@ -1,6 +1,7 @@
 # Cinder Replication
 
 ### [Juno](https://specs.openstack.org/openstack/cinder-specs/specs/juno/volume-replication.html)
+基类定义的接口和行为：https://review.openstack.org/#/c/113054/21/cinder/volume/driver.py
 - 通过快照创建volume，如果新卷指定的是replication类型，则会额外创建replication卷
 - 通过克隆创建volume，如果新卷指定的是replication类型，则会额外创建replication卷
 - 删除replication-type卷，会清理掉non-primary卷
@@ -29,4 +30,4 @@
 - cmd:
 ```
   cinder-manage reset-active-backend replication_status=<status> <active_backend_id> <backend-host>
-```  
+```
