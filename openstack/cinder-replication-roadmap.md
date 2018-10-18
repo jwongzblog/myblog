@@ -24,6 +24,7 @@
   
 ### [Pike](https://specs.openstack.org/openstack/cinder-specs/specs/pike/replication-group.html)
 - 实现了replication-group，租户可以批量操作replication-group内的volume进行主从切换
+- 目前只有DELL、IBM等少数厂商实现了该接口
 
 ### [Rocky](https://specs.openstack.org/openstack/cinder-specs/specs/rocky/cheesecake-promote-backend.html)
 - 实现了fail-back功能，fail-over之后恢复存储集群，如果要恢复replication功能，R版之前需要手动修复cinder-db中的数据
