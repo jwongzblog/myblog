@@ -96,7 +96,10 @@ rbd mirror image resync mirror-pool-test/image1
 ```
 
 ### 总结：
-对照Redhat最佳实践，在进程启动的key处理以及pool/image模式的处理有点出入。cinder实现了replication机制，确保创建volume时，备份集群创了一个mirror卷，实时同步的。它的调研文档我就偷懒不写了，反正过程中问题很多，趟了很多坑，最终把功能都调通了，有需求的可以私我。由于成熟度不高，达不到我们想要的主机的高可用，需要太多人为的操作才能恢复主机。我分别向社区提交了三个需求，不知道猴年马月能完成
+* 对照Redhat最佳实践，在进程启动的key处理以及pool/image模式的处理有点出入。
+* ceph本身也有点问题，跑了3-4天后rbd mirror居然停止同步了，这个有点坑，报了个[BUG](http://tracker.ceph.com/issues/36699)，大伙在跟踪。
+* cinder实现了replication机制，确保创建volume时，备份集群创了一个mirror卷，实时同步的。它的调研文档我就偷懒不写了，反正过程中问题很多，趟了很多坑，最终把功能都调通了，有需求的可以私我。
+* 由于成熟度不高，达不到我们想要的主机的高可用，需要太多人为的操作才能恢复主机。我分别向社区提交了三个需求，不知道猴年马月能完成
 
 https://blueprints.launchpad.net/cinder/+spec/rbd-replication-failover-by-force
 https://blueprints.launchpad.net/cinder/+spec/rbd-replication-promote-old-master-vol-when-failback
