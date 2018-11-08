@@ -102,6 +102,7 @@
 - [漫谈异常处理.md](https://github.com/jwongzblog/myblog/blob/master/openstack/编程思想/漫谈异常处理.md)
 - 漫谈字符集（ascii、gbk及unicode）--跨平台开发绕不过去的一道坎.md
 - 是否需要把单元测试（unit-test）加入项目中.md
+- [墨菲定律.md](https://github.com/jwongzblog/myblog/blob/master/%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3/%E5%A2%A8%E8%8F%B2%E5%AE%9A%E5%BE%8B.md)
 
 # 大型分布式存储系统
 - cassandra-architecture.md  
