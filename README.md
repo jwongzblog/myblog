@@ -30,6 +30,7 @@
 - [需求倒是能做哦，但要给我三个月.md](https://github.com/jwongzblog/myblog/blob/master/openstack/产品的思考/需求倒是能做哦，但要给我三个月.md)
 - [作为一名wower，游戏可以分为魔兽世界和其他.md](https://github.com/jwongzblog/myblog/blob/master/openstack/产品的思考/作为一名wower，游戏可以分为魔兽世界和其他.md)
 - [创新者的窘境.md](https://github.com/jwongzblog/myblog/blob/master/产品的思考/创新者的窘境.md)
+- [从香农定理与摩尔定律的极限说起.md](https://github.com/jwongzblog/myblog/blob/master/%E4%BA%A7%E5%93%81%E7%9A%84%E6%80%9D%E8%80%83/%E4%BB%8E%E9%A6%99%E5%86%9C%E5%AE%9A%E7%90%86%E4%B8%8E%E6%91%A9%E5%B0%94%E5%AE%9A%E5%BE%8B%E7%9A%84%E6%9E%81%E9%99%90%E8%AF%B4%E8%B5%B7.md)
 
 # BigData
 - [浅谈时间序列数据库（一）](https://github.com/jwongzblog/myblog/blob/master/BigData/%E6%B5%85%E8%B0%88%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%88%E4%B8%80%EF%BC%89.md)
