@@ -65,3 +65,24 @@ $redis-cli -c -h $IP -p $PORT
 $IP:$PORT>get hello
 "world"
 ```
+- 集群扩容
+```
+trove cluster-grow ${cluster-id}   --instance "flavor=redis.c2.small,volume=10,volume_type=yc-beta-ceph-hdd-2,availability_zone=nova,nic='net-id=1acccaf1-a300-46f1-9766-5bfc749bc0b7'"
+```
+- 集群缩容
+```
+trove cluster-shrink ${cluster-id} ${instance-id}
+```
+
+### Redis扩容
+只支持local storage（flavor.ephemeral，系统盘做了一个分区），resize-volume会抛错，提示没有卷，所以单机和主从模式会面临一个扩容问题
+*如果考虑扩容，建议使用cluster模式，可以通过grow/shrink来扩、缩容集群*
+
+### Redis备份与恢复
+单机、replication、cluster模式均可选择其中一个节点进行备份
+*但是，只能通过备份ID创建单机的redis进行恢复，无法通过备份创建一个新集群出来*
+```
+trove backup-create 4eb653e0-dc1a-42b8-b05b-d5bf9134792c rb1
+ 
+trove create redis1130-bk redis.c2.small --size 10  --datastore redis --datastore_version 4.0-az1 --nic net-id=1acccaf1-a300-46f1-9766-5bfc749bc0b7 --availability_zone nova  --volume_type yc-beta-ceph-hdd-2 --backup 395b5d5a-8c54-42a1-94ec-5ecfa45eea19
+```
