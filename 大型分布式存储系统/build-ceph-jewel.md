@@ -60,6 +60,7 @@ rpmbuild -ba ~/rpmbuild/SPECS/ceph.spec
 - "-ba"是编译src.rpm和二进制包，详情参考rpmbuild命令
 - "-bb"只编译出二进制包
 - 如果编译出错，重新执行该命令会删掉已经编译好的文件从头开始，不像make那样可以继续编译
+
 *请注意，编译过程是自动的，无需人工参与，但是configure.am文件定义如何生成Makefile文件，里面有一些参数依赖于你的编译环境，比如在编译librockdb的时候，如果环境有lz4的压缩工具，则编译出来的so会依赖liblz4.so，但是官方给出的rpm二进制包是没有这个依赖的，所以如有必要，需要修改configure.am来控制生成的Makefile文件*
 
 ### 进程启动
