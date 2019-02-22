@@ -30,8 +30,7 @@ ceph daemon /var/run/ceph/ceph-osd.0.asok config set debug_osd 0/0
 我要输出一个等级为10的告警，我只需要像下面这样写一句代码即可，dout是一个宏，把所有的细节都封装好了，我们用起来只需像拼字符串那样就行
 ```
 dout(10) << "error completing split on " << path << ": "
-	       << cpp_strerror(r) << dendl;		       
-		   << cpp_strerror(r) << dendl;
+	     << cpp_strerror(r) << dendl;		       
 ```
 dout宏的具体实现：：
 ```
@@ -52,4 +51,9 @@ dout宏的具体实现：：
     ostream _dout_os(&_dout_e->m_streambuf);				\
     CephContext *_dout_cct = cct;					\
     std::ostream* _dout = &_dout_os;
+// flush	
+#define dendl std::flush;				\
+  _ASSERT_H->_log->submit_entry(_dout_e);		\
+    }						\
+  } while (0)
 ```
