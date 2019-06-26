@@ -108,12 +108,22 @@ func getValue(str, key string) string {
 	// indexSplitB := strings.Index(new, ",") || indexSplitB := strings.Index(new, "}")
 	// value := new[indexSplitA + 1 : indexSplitB]
 	// TrimSpace(value)
-	value := str[strings.Index(str, key):]
-	if index := strings.Index(value, ","); index != -1 {
-		return strings.TrimSpace(value[len(key)+1 : index])
-	} else {
-		return strings.TrimSpace(value[len(key)+1 : strings.Index(value, "}")])
+	keyIndex := strings.Index(str, key)
+	if keyIndex == -1 {
+		return ""
 	}
+	value := str[keyIndex:]
+	endIndex := strings.Index(value, ",")
+	if endIndex == -1 {
+		endIndex = strings.Index(value, "}")
+		if endIndex == -1 {
+			return ""
+		}
+
+		return strings.TrimSpace(value[len(key)+1 : endIndex])
+	}
+	
+	return ""
 }
 ```
 此处为了节省代码使用了切片，不易读，可参考注释
