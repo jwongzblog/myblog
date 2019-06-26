@@ -1,4 +1,4 @@
-×î½üÔÚÃ¦TiDBµÄ²úÆ·»¯£¬ÔÚ¼¯³Ébinlog¹¦ÄÜµÄÊ±ºòĞèÒªÀûbinlogctl¹¤¾ßÖ´ĞĞÃüÁîÀ´ÓëTiDB½»»¥£¬¿ÉÊÇÃüÁîÖ´ĞĞµÄ·µ»ØÖµ¾ÓÈ»²»Ïñpd-ctl¹¤¾ßÄÇÑù·µ»Øjson¸ñÊ½£¬¶øÊÇÒ»ÖÖÀàËÆÈÕÖ¾Ò»ÑùµÄÊı¾İ¸ñÊ½£¬ËùÒÔÎÒÎŞ·¨Ê¹ÓÃjson.DecodeÀ´ÓÅÑÅµÄ»¹Ô­Êı¾İµÄ½á¹¹£¬·µ»Ø¸ñÊ½ÈçÏÂ£º
+æœ€è¿‘åœ¨å¿™TiDBçš„äº§å“åŒ–ï¼Œåœ¨é›†æˆbinlogåŠŸèƒ½çš„æ—¶å€™éœ€è¦åˆ©binlogctlå·¥å…·æ‰§è¡Œå‘½ä»¤æ¥ä¸TiDBäº¤äº’ï¼Œå¯æ˜¯å‘½ä»¤æ‰§è¡Œçš„è¿”å›å€¼å±…ç„¶ä¸åƒpd-ctlå·¥å…·é‚£æ ·è¿”å›jsonæ ¼å¼ï¼Œè€Œæ˜¯ä¸€ç§ç±»ä¼¼æ—¥å¿—ä¸€æ ·çš„æ•°æ®æ ¼å¼ï¼Œæ‰€ä»¥æˆ‘æ— æ³•ä½¿ç”¨json.Decodeæ¥ä¼˜é›…çš„è¿˜åŸæ•°æ®çš„ç»“æ„ï¼Œè¿”å›æ ¼å¼å¦‚ä¸‹ï¼š
 ```
 $./binlogctl -pd-urls=http://127.0.0.1:2379 -cmd generate_meta
 INFO[0000] [pd] create pd client with endpoints [http://192.168.199.118:32379]
@@ -7,9 +7,9 @@ INFO[0000] [pd] init cluster id 6569368151110378289
 2018/06/21 11:24:47 meta.go:117: [info] meta: &{CommitTS:400962745252184065}
 ```
 
-´ÖÂÔÀ´£¬ÉÏÃæµÄmetaĞÅÏ¢ÒÀÈ»±£³Ö×ÅÀàËÆ**key:value**µÄ½á¹¹ĞÎÊ½£¬Òò´Ë£¬Ä£·Âencoding/json¿âµÄÊµÏÖ£¬Ò²ÄÜÓÅÑÅµÄ½«ÕâÖÖÈÕÖ¾¸ñÊ½»¹Ô­³östructÊµÀı¡£
+ç²—ç•¥æ¥ï¼Œä¸Šé¢çš„metaä¿¡æ¯ä¾ç„¶ä¿æŒç€ç±»ä¼¼**key:value**çš„ç»“æ„å½¢å¼ï¼Œå› æ­¤ï¼Œæ¨¡ä»¿encoding/jsonåº“çš„å®ç°ï¼Œä¹Ÿèƒ½ä¼˜é›…çš„å°†è¿™ç§æ—¥å¿—æ ¼å¼è¿˜åŸå‡ºstructå®ä¾‹ã€‚
 
-##### µÚÒ»²½£ºÄÃµ½metaÄÇĞĞÓĞĞ§Êı¾İ£º
+##### ç¬¬ä¸€æ­¥ï¼šæ‹¿åˆ°metaé‚£è¡Œæœ‰æ•ˆæ•°æ®ï¼š
 ```
 func GetMeta(session, scriptPath, pdAddr string) (Meta, error) {
 	genCmd := fmt.Sprintf("%s/binlogctl -pd-urls=http://%s -cmd generate_meta", scriptPath, pdAddr)
@@ -53,7 +53,7 @@ func GetMeta(session, scriptPath, pdAddr string) (Meta, error) {
 }
 ```
 
-##### µÚ¶ş²½£ºÀûÓÃreflectÊµÏÖdecode
+##### ç¬¬äºŒæ­¥ï¼šåˆ©ç”¨reflectå®ç°decode
 ```
 type Meta struct {
 	CommitTS string
@@ -64,20 +64,20 @@ func decode(str string, v interface{}) error {
 	vv := reflect.ValueOf(v).Elem()
 
 	var globalErr error
-	// ±éÀústructµÄ³ÉÔ±
+	// éå†structçš„æˆå‘˜
 	fmt.Print(vt.NumField())
 	for i := 0; i < vt.NumField(); i++ {
 		field := vt.Field(i)
 
-		// »ñÈ¡×Ö·û´®strÖĞfield¶ÔÓ¦µÄÖµ
+		// è·å–å­—ç¬¦ä¸²strä¸­fieldå¯¹åº”çš„å€¼
 		value := getValue(str, field.Name)
 
-		// »ñÈ¡reflect.Value
+		// è·å–reflect.Value
 		target := vv.FieldByName(field.Name)
 		if target.Kind() != reflect.String {
 			panic("Field of struct should be string(type)!")
 		} else {
-			// ½«½âÎö³öÀ´µÄÖµ¸³Öµ¸ø´«ÈëµÄinterface
+			// å°†è§£æå‡ºæ¥çš„å€¼èµ‹å€¼ç»™ä¼ å…¥çš„interface
 			target.SetString(value)
 		}
 	}
@@ -91,9 +91,9 @@ func decode(str string, v interface{}) error {
 	return globalErr
 }
 ```
-´Ë´¦ÎÒÃÇÖ»´¦Àístruct³ÉÔ±ÎªÒ»²ãµÄ½á¹¹ÇÒÕâ²ã½á¹¹ÎªstringÀàĞÍ
+æ­¤å¤„æˆ‘ä»¬åªå¤„ç†structæˆå‘˜ä¸ºä¸€å±‚çš„ç»“æ„ä¸”è¿™å±‚ç»“æ„ä¸ºstringç±»å‹
 
-##### µÚÈı²½£ºÈ¡³östructµÄ³ÉÔ±Ãû¶ÔÓ¦µÄÖµ
+##### ç¬¬ä¸‰æ­¥ï¼šå–å‡ºstructçš„æˆå‘˜åå¯¹åº”çš„å€¼
 ```
 func getValue(str, key string) string {
 	if len(str) == 0 ||
@@ -116,9 +116,9 @@ func getValue(str, key string) string {
 	}
 }
 ```
-´Ë´¦ÎªÁË½ÚÊ¡´úÂëÊ¹ÓÃÁËÇĞÆ¬£¬²»Ò×¶Á£¬¿É²Î¿¼×¢ÊÍ
+æ­¤å¤„ä¸ºäº†èŠ‚çœä»£ç ä½¿ç”¨äº†åˆ‡ç‰‡ï¼Œä¸æ˜“è¯»ï¼Œå¯å‚è€ƒæ³¨é‡Š
 
-Èç¹ûÏëÀí½âreflectÎªÊ²Ã´ÄÜÈÃgoÓµÓĞÒ»Ğ©¶¯Ì¬ÓïÑÔµÄÌØĞÔ£¬´ó¼Ò¿ÉÒÔÈ¥¿´Ô´Âë£¬ÎÒÕâÀï¼òµ¥µÄ½éÉÜÒ»ÏÂÔ­Àí£¬reflect¼òÖ±ÊÇgoÓïÑÔµÄºóÃÅ£¬Ëü½«goÓïÑÔµÄÀàĞÍÉè¼Æ±©Â¶ÁË³öÀ´£¬ÔÛÃÇÑ­×Å´úÂëŞÛÒ»±é£º
+å¦‚æœæƒ³ç†è§£reflectä¸ºä»€ä¹ˆèƒ½è®©goæ‹¥æœ‰ä¸€äº›åŠ¨æ€è¯­è¨€çš„ç‰¹æ€§ï¼Œå¤§å®¶å¯ä»¥å»çœ‹æºç ï¼Œæˆ‘è¿™é‡Œç®€å•çš„ä»‹ç»ä¸€ä¸‹åŸç†ï¼Œreflectç®€ç›´æ˜¯goè¯­è¨€çš„åé—¨ï¼Œå®ƒå°†goè¯­è¨€çš„ç±»å‹è®¾è®¡æš´éœ²äº†å‡ºæ¥ï¼Œå’±ä»¬å¾ªç€ä»£ç æ‹ä¸€éï¼š
 ```
 reflect/type.go
 
@@ -129,7 +129,7 @@ func TypeOf(i interface{}) Type {
 	return toType(eface.typ)
 }
 ```
-´«½øÀ´µÄ¶ÔÏóµÄÖ¸Õë±»Ç¿×ª³ÉemptyInterface£¬ÎªÊ²Ã´ÄÜÇ¿×ª£¿ÎÒÃÇ¿´¿´emptyInterfaceÊÇÊ²Ã´£º
+ä¼ è¿›æ¥çš„å¯¹è±¡çš„æŒ‡é’ˆè¢«å¼ºè½¬æˆemptyInterfaceï¼Œä¸ºä»€ä¹ˆèƒ½å¼ºè½¬ï¼Ÿæˆ‘ä»¬çœ‹çœ‹emptyInterfaceæ˜¯ä»€ä¹ˆï¼š
 ```
 reflect/value.go
 
@@ -139,7 +139,7 @@ type emptyInterface struct {
 	word unsafe.Pointer
 }
 ```
-rtypeÓÖÊÇÊ²Ã´......
+rtypeåˆæ˜¯ä»€ä¹ˆ......
 ```
 reflect/type.go
 
@@ -161,7 +161,7 @@ type rtype struct {
 	ptrToThis  typeOff  // type for pointer to this type, may be zero
 }
 ```
-¿´Õâ¾ärtype must be kept in sync with ../runtime/type.go:/^type._type
+çœ‹è¿™å¥rtype must be kept in sync with ../runtime/type.go:/^type._type
 ```
 runtime/type.go
 
@@ -182,4 +182,4 @@ type _type struct {
 	ptrToThis typeOff
 }
 ```
-±¾ÖÊÉÏrtypeºÍ_typeµÄÄÚ´æ²¼¾ÖÊÇÒ»ÑùµÄ£¬ËùÒÔËûÃÇÄÜ¹»Í¨¹ıÇ¿ÖÆ×ª»»ÀàĞÍ£¬ÈÃreflect.Type¾ß±¸_typeÒ»Ñù¶Ô³ÉÔ±±äÁ¿²Ù×÷µÄÄÜÁ¦£¬ÓëpythonµÄobject£¨ÍòÎï½Ô¶ÔÏó£©Éè¼ÆÓĞÒìÇúÍ¬¹¤Ö®Ãî
+æœ¬è´¨ä¸Šrtypeå’Œ_typeçš„å†…å­˜å¸ƒå±€æ˜¯ä¸€æ ·çš„ï¼Œæ‰€ä»¥ä»–ä»¬èƒ½å¤Ÿé€šè¿‡å¼ºåˆ¶ç±»å‹è½¬æ¢ï¼Œå°†åŸºæœ¬ç±»å‹runtime._typeè½¬æˆreflect.rtypeï¼Œè¿™æ ·å°±å…·å¤‡äº†_typeå¯¹æˆå‘˜å˜é‡çš„æ“ä½œèƒ½åŠ›ï¼Œä¸pythonçš„objectï¼ˆä¸‡ç‰©çš†å¯¹è±¡ï¼‰è®¾è®¡æœ‰å¼‚æ›²åŒå·¥ä¹‹å¦™
