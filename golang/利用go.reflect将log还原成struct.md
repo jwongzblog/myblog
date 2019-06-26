@@ -113,17 +113,16 @@ func getValue(str, key string) string {
 		return ""
 	}
 	value := str[keyIndex:]
+
 	endIndex := strings.Index(value, ",")
 	if endIndex == -1 {
 		endIndex = strings.Index(value, "}")
 		if endIndex == -1 {
 			return ""
 		}
-
-		return strings.TrimSpace(value[len(key)+1 : endIndex])
 	}
-	
-	return ""
+
+	return strings.TrimSpace(value[len(key)+1 : endIndex])
 }
 ```
 此处为了节省代码使用了切片，不易读，可参考注释
