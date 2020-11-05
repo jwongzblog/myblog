@@ -14,12 +14,7 @@ func NewUs3(path, objName string) *Us3 {
 }
 
 func (u *Us3) Upload() error {
-	config, err := ufsdk.LoadConfig(common.Us3ConfigFile)
-	if err != nil {
-		return err
-	}
-
-	req, err := ufsdk.NewFileRequest(config, nil)
+	req, err := ufsdk.NewFileRequest(common.Config, nil)
 	if err != nil {
 		return err
 	}

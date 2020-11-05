@@ -7,6 +7,7 @@ import (
 	"strings"
 	"sync"
 	"time"
+	ufsdk "github.com/ufilesdk-dev/ufile-gosdk"
 )
 
 type Runner struct {
@@ -21,7 +22,12 @@ func NewRunner(uploadDir, product string, threadCount int) *Runner {
 func (r *Runner) Run() {
 	fileMap, size, err := common.GetFileMap(r.uploadDir)
 	if err != nil {
-		log.Print(err)
+		log.Fatal(err)
+	}
+
+	common.Config, err = ufsdk.LoadConfig(common.Us3ConfigFile)
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	concurrentChan := make(chan error, r.threadCount)
@@ -50,6 +56,7 @@ func (r *Runner) Run() {
 				objPro = product.NewOss(path, objName)
 			}
 			e := objPro.Upload()
+			log.Println(e)
 			endUpload := time.Now().UnixNano()
 			addUploadTime += endUpload - beginUpload
 			concurrentChan <- e //跑完一个 goroutine 后，发信号表示可以开启新的 goroutine。
