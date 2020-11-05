@@ -1,9 +1,9 @@
 package product
 
 import (
-	"fmt"
-	"github.com/jwongzblog/myblog/golang/example/object_stor_test/common"
+	"log"
 	"os"
+	"src/common"
 	"sync"
 
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
@@ -17,7 +17,7 @@ func NewOss(path, objName string) *Oss {
 	return &Oss{path: path, objName: objName}
 }
 
-func (u *Oss) Upload() error {
+func (o *Oss) Upload() error {
 	// 创建OSSClient实例。
 	client, err := oss.New(common.Config.FileHost, common.Config.PublicKey, common.Config.PrivateKey)
 	if err != nil {
@@ -25,8 +25,8 @@ func (u *Oss) Upload() error {
 	}
 
 	bucketName := common.Config.BucketName
-	objectName := r.objName
-	locaFilename := r.path
+	objectName := o.objName
+	locaFilename := o.path
 
 	// 获取存储空间。
 	bucket, err := client.Bucket(bucketName)
@@ -60,7 +60,8 @@ func (u *Oss) Upload() error {
 			// 调用UploadPart方法上传每个分片。
 			part, err := bucket.UploadPart(imur, fd, chunk.Size, chunk.Number)
 			if err != nil {
-				return err
+				log.Println(err)
+				return
 			}
 			parts = append(parts, part)
 
@@ -74,7 +75,7 @@ func (u *Oss) Upload() error {
 	objectAcl := oss.ObjectACL(oss.ACLPublicRead)
 
 	// 步骤3：完成分片上传，指定文件读写权限为公共读。
-	cmur, err := bucket.CompleteMultipartUpload(imur, parts, objectAcl)
+	_, err = bucket.CompleteMultipartUpload(imur, parts, objectAcl)
 	if err != nil {
 		return err
 	}

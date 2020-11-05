@@ -1,6 +1,6 @@
 package common
 
-import(
+import (
 	ufsdk "github.com/ufilesdk-dev/ufile-gosdk"
 )
 

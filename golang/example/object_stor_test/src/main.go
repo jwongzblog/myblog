@@ -1,10 +1,10 @@
 package main
 
 import (
-	"./common"
 	"flag"
 	"log"
-	"./runner"
+	"src/common"
+	"src/runner"
 )
 
 var (

@@ -10,7 +10,7 @@ import (
 func GetFileMap(filePath string) (map[string]string, int64, error) {
 	var (
 		baseDir string
-		size int64
+		size    int64
 	)
 	fileMap := make(map[string]string)
 

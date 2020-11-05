@@ -1,10 +1,10 @@
 package runner
 
 import (
-	"github.com/jwongzblog/myblog/golang/example/object_stor_test/common"
-	"github.com/jwongzblog/myblog/golang/example/object_stor_test/product"
 	ufsdk "github.com/ufilesdk-dev/ufile-gosdk"
 	"log"
+	"src/common"
+	"src/product"
 	"strings"
 	"sync"
 	"time"

@@ -1,8 +1,8 @@
 package product
 
 import (
-	"github.com/jwongzblog/myblog/golang/example/object_stor_test/common"
 	ufsdk "github.com/ufilesdk-dev/ufile-gosdk"
+	"src/common"
 )
 
 type Us3 struct {

@@ -1,0 +1,9 @@
+# github.com/aliyun/aliyun-oss-go-sdk v2.1.4+incompatible
+## explicit
+github.com/aliyun/aliyun-oss-go-sdk/oss
+# github.com/ufilesdk-dev/ufile-gosdk v1.0.0
+## explicit
+github.com/ufilesdk-dev/ufile-gosdk
+# golang.org/x/time v0.0.0-20200630173020-3af7569d3a1e
+## explicit
+golang.org/x/time/rate
