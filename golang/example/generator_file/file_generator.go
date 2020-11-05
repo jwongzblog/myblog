@@ -7,11 +7,14 @@ import (
 	"math/rand"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
 )
 
 var (
-	dir        = flag.String("dir", `/mnt/d/test_dir or d:\test_dir`, "target directory")
+	dir = flag.String("dir", "/mnt/d/test_dir", `target directory:
+/mnt/d/test_dir(linux)
+d:\test_dir(windows)`)
 	totalSize = flag.Int64("totalSize", 10, "total size : GB")
 	fileSize  = flag.String("fileSize", "32MB", `4KB
 64KB
@@ -77,6 +80,10 @@ func generator() {
 func main() {
 	log.SetFlags(log.Lshortfile)
 	flag.Parse()
+
+	if !strings.EqualFold(runtime.GOOS, "linux") {
+		*dir = `d:\test_dir`
+	}
 
 	err := os.Mkdir(*dir, 0777)
 	if os.IsNotExist(err) {
