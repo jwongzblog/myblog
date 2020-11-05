@@ -47,7 +47,7 @@ func generatorFile(path string, totalByte, fileByte int64) {
 		fileName := filepath.Join(path, fmt.Sprint(i))
 		f, err := os.OpenFile(fileName, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0755)
 		if err != nil {
-			log.Fatal(err)
+			log.Print(err)
 		}
 		defer f.Close()
 
@@ -57,12 +57,12 @@ func generatorFile(path string, totalByte, fileByte int64) {
 			rand.Read(randomByte)
 			_, err := f.Write(randomByte)
 			if err != nil {
-				log.Fatal(err)
+				log.Print(err)
 			}
 		}
 		err = f.Sync()
 		if err != nil {
-			log.Fatal(err)
+			log.Print(err)
 		}
 	}
 }
