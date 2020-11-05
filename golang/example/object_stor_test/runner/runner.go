@@ -6,6 +6,7 @@ import (
 	"../product"
 	"strings"
 	"sync"
+	"time"
 )
 
 type Runner struct {
@@ -18,7 +19,7 @@ func NewRunner(uploadDir, product string, threadCount int) *Runner {
 }
 
 func (r *Runner) Run() {
-	fileMap, err := common.GetFileMap(r.uploadDir)
+	fileMap, size, err := common.GetFileMap(r.uploadDir)
 	if err != nil {
 		log.Print(err)
 	}
@@ -28,7 +29,10 @@ func (r *Runner) Run() {
 		concurrentChan <- nil
 	}
 
+	beginRunner := time.Now().Unix()
+	addUploadTime := int64(0)
 	wg := &sync.WaitGroup{}
+
 	for path, objName := range fileMap {
 		uploadErr := <-concurrentChan //最初允许启动 {$threadCount} 个 goroutine，超出{$threadCount}个后，有分片返回才会开新的goroutine.
 		if uploadErr != nil {
@@ -38,12 +42,16 @@ func (r *Runner) Run() {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-
+			beginUpload := time.Now().UnixNano()
 			var objPro product.Product
 			if strings.EqualFold(r.product, common.Us3) {
 				objPro = product.NewUs3(path, objName)
+			} else {
+				objPro = product.NewOss(path, objName)
 			}
 			e := objPro.Upload()
+			endUpload := time.Now().UnixNano()
+			addUploadTime += endUpload - beginUpload
 			concurrentChan <- e //跑完一个 goroutine 后，发信号表示可以开启新的 goroutine。
 		}()
 	}
@@ -63,4 +71,7 @@ func (r *Runner) Run() {
 		}
 	}
 	close(concurrentChan)
+
+	endRunner := time.Now().Unix()
+	log.Printf("total size:%dMB, file count:%d, use time:%ds, avg time:%dms", size/1024/1024, len(fileMap), endRunner - beginRunner, addUploadTime/int64(len(fileMap))/1000000)
 }

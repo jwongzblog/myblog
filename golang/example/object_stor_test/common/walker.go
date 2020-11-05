@@ -7,8 +7,11 @@ import (
 	"strings"
 )
 
-func GetFileMap(filePath string) (map[string]string, error) {
-	var baseDir string
+func GetFileMap(filePath string) (map[string]string, int64, error) {
+	var (
+		baseDir string
+		size int64
+	)
 	fileMap := make(map[string]string)
 
 	// 移除末尾字符"/"
@@ -37,16 +40,16 @@ func GetFileMap(filePath string) (map[string]string, error) {
 		if info.IsDir() {
 			return nil
 		}
+		size += info.Size()
 
-		fmt.Printf("path:%s, file:%s\n", path, remoteFileKey)
 		fileMap[path] = remoteFileKey
 
 		return nil
 	})
 
 	if err != nil {
-		return fileMap, err
+		return fileMap, size, err
 	}
 
-	return fileMap, nil
+	return fileMap, size, nil
 }
