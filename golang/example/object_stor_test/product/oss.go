@@ -1,8 +1,8 @@
 package product
 
 import (
-	"../common"
 	"fmt"
+	"github.com/jwongzblog/myblog/golang/example/object_stor_test/common"
 	"os"
 	"sync"
 

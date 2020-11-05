@@ -1,7 +1,7 @@
 package product
 
 import (
-	"../common"
+	"github.com/jwongzblog/myblog/golang/example/object_stor_test/common"
 	ufsdk "github.com/ufilesdk-dev/ufile-gosdk"
 )
 

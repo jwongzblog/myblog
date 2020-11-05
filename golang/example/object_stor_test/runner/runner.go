@@ -1,13 +1,13 @@
 package runner
 
 import (
-	"../common"
+	"github.com/jwongzblog/myblog/golang/example/object_stor_test/common"
+	"github.com/jwongzblog/myblog/golang/example/object_stor_test/product"
+	ufsdk "github.com/ufilesdk-dev/ufile-gosdk"
 	"log"
-	"../product"
 	"strings"
 	"sync"
 	"time"
-	ufsdk "github.com/ufilesdk-dev/ufile-gosdk"
 )
 
 type Runner struct {
@@ -80,5 +80,5 @@ func (r *Runner) Run() {
 	close(concurrentChan)
 
 	endRunner := time.Now().Unix()
-	log.Printf("total size:%dMB, file count:%d, use time:%ds, avg time:%dms", size/1024/1024, len(fileMap), endRunner - beginRunner, addUploadTime/int64(len(fileMap))/1000000)
+	log.Printf("total size:%dMB, file count:%d, use time:%ds, avg time:%dms", size/1024/1024, len(fileMap), endRunner-beginRunner, addUploadTime/int64(len(fileMap))/1000000)
 }
