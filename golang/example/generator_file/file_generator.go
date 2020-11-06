@@ -49,7 +49,6 @@ func generatorFile(path string, totalByte, fileByte int64) {
 		if err != nil {
 			log.Print(err)
 		}
-		defer f.Close()
 
 		writeCount := fileByte / 1024 / 4
 		for j := int64(0); j < writeCount; j++ {
@@ -64,6 +63,8 @@ func generatorFile(path string, totalByte, fileByte int64) {
 		if err != nil {
 			log.Print(err)
 		}
+
+		f.Close()
 	}
 }
 
