@@ -76,7 +76,7 @@ func (o *Oss) Upload() error {
 	objectAcl := oss.ObjectACL(oss.ACLPublicRead)
 
 	// 步骤3：完成分片上传，指定文件读写权限为公共读。
-	cmur, err = bucket.CompleteMultipartUpload(imur, parts, objectAcl)
+	cmur, err := bucket.CompleteMultipartUpload(imur, parts, objectAcl)
 	if err != nil {
 		return err
 	}
