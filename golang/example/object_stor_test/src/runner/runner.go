@@ -56,7 +56,6 @@ func (r *Runner) Run() {
 				objPro = product.NewOss(path, objName)
 			}
 			e := objPro.Upload()
-			log.Println(e)
 			endUpload := time.Now().UnixNano()
 			addUploadTime += endUpload - beginUpload
 			concurrentChan <- e //跑完一个 goroutine 后，发信号表示可以开启新的 goroutine。
@@ -70,6 +69,7 @@ func (r *Runner) Run() {
 			case e := <-concurrentChan:
 				err = e
 				if err != nil {
+					log.Println(err)
 					break loopCheck
 				}
 			default:
