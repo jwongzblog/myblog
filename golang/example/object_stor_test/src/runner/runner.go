@@ -46,7 +46,7 @@ func (r *Runner) Run() {
 			break // 中间如果出现错误立即停止继续上传
 		}
 		wg.Add(1)
-		go func() {
+		go func(path, objName string) {
 			defer wg.Done()
 			beginUpload := time.Now().UnixNano()
 			var objPro product.Product
@@ -59,7 +59,7 @@ func (r *Runner) Run() {
 			endUpload := time.Now().UnixNano()
 			addUploadTime += endUpload - beginUpload
 			concurrentChan <- e //跑完一个 goroutine 后，发信号表示可以开启新的 goroutine。
-		}()
+		}(path, objName)
 	}
 	wg.Wait()       //等待所有任务返回
 	if err == nil { //再次检查剩余上传完的分片是否有错误
