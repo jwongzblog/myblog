@@ -4,7 +4,6 @@ import (
 	"log"
 	"os"
 	"src/common"
-	"sync"
 
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 )
@@ -51,26 +50,18 @@ func (o *Oss) Upload() error {
 	// 步骤2：上传分片。
 	var (
 		parts []oss.UploadPart
-		wg sync.WaitGroup
 	)
 
 	for _, chunk := range chunks {
-		wg.Add(1)
-		go func(chunk oss.FileChunk) {
-			fd.Seek(chunk.Offset, os.SEEK_SET)
-			// 调用UploadPart方法上传每个分片。
-			part, err := bucket.UploadPart(imur, fd, chunk.Size, chunk.Number)
-			if err != nil {
-				log.Println(err)
-				return
-			}
-			parts = append(parts, part)
-
-			defer wg.Done()
-		}(chunk)
+		fd.Seek(chunk.Offset, os.SEEK_SET)
+		// 调用UploadPart方法上传每个分片。
+		part, err := bucket.UploadPart(imur, fd, chunk.Size, chunk.Number)
+		if err != nil {
+			log.Println(err)
+			return err
+		}
+		parts = append(parts, part)
 	}
-
-	wg.Wait()
 
 	// 指定Object的读写权限为公共读，默认为继承Bucket的读写权限。
 	objectAcl := oss.ObjectACL(oss.ACLPublicRead)
