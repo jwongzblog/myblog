@@ -49,9 +49,10 @@ func (o *Oss) Upload() error {
 	// 步骤1：初始化一个分片上传事件，并指定存储类型为标准存储。
 	imur, err := bucket.InitiateMultipartUpload(objectName, storageType)
 	// 步骤2：上传分片。
-	var parts []oss.UploadPart
-
-	var wg sync.WaitGroup
+	var (
+		parts []oss.UploadPart
+		wg sync.WaitGroup
+	)
 
 	for _, chunk := range chunks {
 		wg.Add(1)
@@ -75,9 +76,11 @@ func (o *Oss) Upload() error {
 	objectAcl := oss.ObjectACL(oss.ACLPublicRead)
 
 	// 步骤3：完成分片上传，指定文件读写权限为公共读。
-	_, err = bucket.CompleteMultipartUpload(imur, parts, objectAcl)
+	cmur, err = bucket.CompleteMultipartUpload(imur, parts, objectAcl)
 	if err != nil {
 		return err
 	}
+	log.Println(cmur)
+
 	return nil
 }
