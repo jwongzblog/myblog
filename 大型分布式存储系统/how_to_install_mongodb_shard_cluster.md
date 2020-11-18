@@ -224,3 +224,20 @@ $sh.addShard( "mongo_shard_repl_1/10.9.134.47:28000,10.9.63.80:28000,10.9.98.185
 $sh.addShard( "mongo_shard_repl_2/10.9.134.47:29000,10.9.63.80:29000,10.9.98.185:29000")
 $sh.addShard( "mongo_shard_repl_3/10.9.134.47:30000,10.9.63.80:28000,10.9.98.185:30000")
 ```
+
+# sysbench
+## 使用雅虎开源的压测工具：YCSB
+工具安装：https://github.com/brianfrankcooper/YCSB/tree/master/mongodb
+
+## 使用hash sharding
+```
+sh.enableSharding("ycsb")
+db.usertable.createIndex( { _id: "hashed" } )
+sh.shardCollection("ycsb.usertable",{"_id": "hashed"})
+```
+
+## 编辑YCSB模板
+workloads/workloada
+
+## 执行
+./bin/ycsb load mongodb -s -P workloads/workloada -p mongodb.url=mongodb://10.9.134.47:26000,10.9.63.80:26000,10.9.98.185:26000/ycsb?w=0
