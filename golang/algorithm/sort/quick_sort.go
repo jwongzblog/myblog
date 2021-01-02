@@ -29,9 +29,9 @@ func partition(array []int, start, end int) int {
 }
 
 func swap(array []int, a, b int) {
-	fmt.Print(array, "\n")
+	//fmt.Print(array, "\n")
 	array[a], array[b] = array[b], array[a]
-	fmt.Print(array, "\n")
+	//fmt.Print(array, "\n")
 }
 
 // func main() {
