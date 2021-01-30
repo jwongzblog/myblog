@@ -8,6 +8,7 @@ import (
 	"log"
 	"os"
 	"sync"
+	"sync/atomic"
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -22,7 +23,7 @@ var data_path = flag.String("data_path", "", "json data")
 var sleep_time = flag.Int("sleep_time", 5, "sleep 5 minutes")
 var delete_num = flag.Int("delete_num", 10, "delete thread count")
 var insert_num = flag.Int("insert_num", 5, "insert thread count")
-var workerNum = 0
+var workerNum int32 = 0
 
 func delete(client *mongo.Client) {
 	time.Sleep(*sleep_time * time.Minutes)
@@ -42,7 +43,7 @@ func delete(client *mongo.Client) {
 	}
 }
 
-func insertThread(client *mongo.Client) {
+func insertNoBlock(client *mongo.Client) {
 	file, err := os.Open(*data_path)
 	if err != nil {
 		panic(err)
@@ -52,18 +53,78 @@ func insertThread(client *mongo.Client) {
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		Json := scanner.Bytes()
-		var bdoc interface{}
-		err = bson.UnmarshalExtJSON(Json, false, &bdoc)
-		if err != nil {
-			log.Fatal(err)
+
+		go func (client *mongo.Client, Json byte[]) {
+			var bdoc interface{}
+			err = bson.UnmarshalExtJSON(Json, false, &bdoc)
+			if err != nil {
+				log.Fatal(err)
+				continue
+			}
+	
+			collection := client.Database(*db_name).Collection(*col_name)
+			_, err := collection.InsertOne(context.TODO(), &bdoc)
+			if err != nil {
+				log.Fatal(err)
+			}
+		}(client, Json)
+	}
+
+	if err := scanner.Err(); err != nil {
+		panic(err)
+	}
+	os.Exit()
+}
+
+func insertOp(client *mongo.Client, Json byte[], c chan string) {
+	var bdoc interface{}
+	err = bson.UnmarshalExtJSON(Json, false, &bdoc)
+	if err != nil {
+		log.Fatal(err)
+		continue
+	}
+
+	collection := client.Database(*db_name).Collection(*col_name)
+	_, err := collection.InsertOne(context.TODO(), &bdoc)
+	if err != nil {
+		log.Fatal(err)
+	}
+	
+	// lock
+	var mutex sync.Mutex
+	mutex.Lock()
+	atomic.AddInt32(&workerNum, -1)
+	//whether send chan
+	if workerNum == *insert_num - 1 {
+		c <- "go on"
+	}
+	// unlock
+	mutex.Unlock()
+}
+
+func insertBlock(client *mongo.Client) {
+	file, err := os.Open(*data_path)
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+
+	c := make(chan string, 1)
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		atomic.AddInt32(&workerNum, 1)
+		Json := scanner.Bytes()
+
+		if *insert_num > workerNum {
+			go insertOp(client, Json, c)
 			continue
 		}
 
-		collection := client.Database(*db_name).Collection(*col_name)
-		_, err := collection.InsertOne(context.TODO(), &bdoc)
-		if err != nil {
-			log.Fatal(err)
-			continue
+		for {
+			select {
+			case  <- c:
+				go insertOp(client, Json, c)	
+			}			
 		}
 	}
 
@@ -86,13 +147,13 @@ func main() {
 	defer cancel()
 
 	clientOptions := options.Client().ApplyURI(fmt.Sprintf("mongodb://%s", *url))
-	clientOptions = clientOptions.SetMaxPoolSize(500)
+	clientOptions = clientOptions.SetMaxPoolSize(*insert_num + *delete_num)
 	client, err := mongo.Connect(ctx, clientOptions)
 	if err != nil {
 		panic(err)
 	}
 
-	go insertThread(client)
+	go insertNoBlock(client)
 
 	for i := 0; i < *delete_num; i++ {
 		go delete(client)
