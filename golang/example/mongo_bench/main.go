@@ -23,7 +23,6 @@ var data_path = flag.String("data_path", "", "json data")
 var sleep_time = flag.Int("sleep_time", 5, "sleep 5 minutes")
 var delete_num = flag.Int("delete_num", 10, "delete thread count")
 var insert_num = flag.Int("insert_num", 5, "insert thread count")
-var workerNum int32 = 0
 
 func delete(client *mongo.Client) {
 	time.Sleep(*sleep_time * time.Minutes)
@@ -90,16 +89,7 @@ func insertOp(client *mongo.Client, Json byte[], c chan string) {
 		log.Fatal(err)
 	}
 	
-	// lock
-	var mutex sync.Mutex
-	mutex.Lock()
-	atomic.AddInt32(&workerNum, -1)
-	//whether send chan
-	if workerNum == *insert_num - 1 {
-		c <- "go on"
-	}
-	// unlock
-	mutex.Unlock()
+	<- c
 }
 
 func insertBlock(client *mongo.Client) {
@@ -109,23 +99,12 @@ func insertBlock(client *mongo.Client) {
 	}
 	defer file.Close()
 
-	c := make(chan string, 1)
+	c := make(chan int, *insert_num)
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		atomic.AddInt32(&workerNum, 1)
 		Json := scanner.Bytes()
-
-		if *insert_num > workerNum {
-			go insertOp(client, Json, c)
-			continue
-		}
-
-		for {
-			select {
-			case  <- c:
-				go insertOp(client, Json, c)	
-			}			
-		}
+		go insertOp(client, Json, c)
+		c <- 1
 	}
 
 	if err := scanner.Err(); err != nil {
