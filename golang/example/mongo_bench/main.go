@@ -8,6 +8,7 @@ import (
 	"log"
 	"os"
 	"sync"
+	"sync/atomic"
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -22,6 +23,8 @@ var data_path = flag.String("data_path", "", "json data")
 var sleep_time = flag.Int("sleep_time", 5, "sleep 5 minutes")
 var delete_num = flag.Int("delete_num", 5, "delete thread count")
 var insert_num = flag.Int("insert_num", 10, "insert thread count")
+var insertOpCount uint64 = 0
+var deleteOpCount uint64 = 0
 
 func delete(client *mongo.Client) {
 	time.Sleep(time.Duration(*sleep_time) * time.Minute)
@@ -38,13 +41,13 @@ func delete(client *mongo.Client) {
 		if err != nil {
 			log.Fatal(err)
 		}
+		atomic.AddUint64(&deleteOpCount, 1)
 	}
 }
 
 func insertOp(client *mongo.Client, Json []byte, c chan int) {
 	var bdoc interface{}
 	err := bson.UnmarshalExtJSON(Json, false, &bdoc)
-	fmt.Print(bdoc)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -54,6 +57,7 @@ func insertOp(client *mongo.Client, Json []byte, c chan int) {
 	if err != nil {
 		log.Fatal(err)
 	}
+	atomic.AddUint64(&insertOpCount, 1)
 
 	<-c
 }
@@ -68,7 +72,7 @@ func insertBlock(client *mongo.Client) {
 	c := make(chan int, *insert_num)
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		Json := scanner.Bytes()
+		Json := []byte(scanner.Text())
 		go insertOp(client, Json, c)
 		c <- 1
 	}
@@ -77,6 +81,24 @@ func insertBlock(client *mongo.Client) {
 		panic(err)
 	}
 	log.Print("exit")
+}
+
+func statisticFunc() {
+	callTicker := time.NewTicker(10 * time.Second)
+	defer callTicker.Stop()
+
+	var insertNum uint64 = 0
+	var deleteNum uint64 = 0
+
+	for {
+		select {
+		case <-callTicker.C:
+
+			fmt.Printf("insert %d ops, delete %d ops, per 10s \n", insertOpCount-insertNum, deleteOpCount-deleteNum)
+			insertNum = insertOpCount
+			deleteNum = deleteOpCount
+		}
+	}
 }
 
 func hang() {
@@ -103,6 +125,8 @@ func main() {
 	for i := 0; i < *delete_num; i++ {
 		go delete(client)
 	}
+
+	go statisticFunc()
 
 	hang()
 
