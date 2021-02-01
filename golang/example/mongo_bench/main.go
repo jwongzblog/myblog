@@ -8,7 +8,6 @@ import (
 	"log"
 	"os"
 	"sync"
-	"sync/atomic"
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -21,11 +20,11 @@ var db_name = flag.String("db_name", "", "db name")
 var col_name = flag.String("col_name", "", "collection name")
 var data_path = flag.String("data_path", "", "json data")
 var sleep_time = flag.Int("sleep_time", 5, "sleep 5 minutes")
-var delete_num = flag.Int("delete_num", 10, "delete thread count")
-var insert_num = flag.Int("insert_num", 5, "insert thread count")
+var delete_num = flag.Int("delete_num", 5, "delete thread count")
+var insert_num = flag.Int("insert_num", 10, "insert thread count")
 
 func delete(client *mongo.Client) {
-	time.Sleep(*sleep_time * time.Minutes)
+	time.Sleep(time.Duration(*sleep_time) * time.Minute)
 
 	for {
 		collection := client.Database(*db_name).Collection(*col_name)
@@ -42,54 +41,21 @@ func delete(client *mongo.Client) {
 	}
 }
 
-func insertNoBlock(client *mongo.Client) {
-	file, err := os.Open(*data_path)
-	if err != nil {
-		panic(err)
-	}
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		Json := scanner.Bytes()
-
-		go func (client *mongo.Client, Json byte[]) {
-			var bdoc interface{}
-			err = bson.UnmarshalExtJSON(Json, false, &bdoc)
-			if err != nil {
-				log.Fatal(err)
-				continue
-			}
-	
-			collection := client.Database(*db_name).Collection(*col_name)
-			_, err := collection.InsertOne(context.TODO(), &bdoc)
-			if err != nil {
-				log.Fatal(err)
-			}
-		}(client, Json)
-	}
-
-	if err := scanner.Err(); err != nil {
-		panic(err)
-	}
-	os.Exit()
-}
-
-func insertOp(client *mongo.Client, Json byte[], c chan string) {
+func insertOp(client *mongo.Client, Json []byte, c chan int) {
 	var bdoc interface{}
-	err = bson.UnmarshalExtJSON(Json, false, &bdoc)
+	err := bson.UnmarshalExtJSON(Json, false, &bdoc)
+	fmt.Print(bdoc)
 	if err != nil {
 		log.Fatal(err)
-		continue
 	}
 
 	collection := client.Database(*db_name).Collection(*col_name)
-	_, err := collection.InsertOne(context.TODO(), &bdoc)
+	_, err = collection.InsertOne(context.TODO(), &bdoc)
 	if err != nil {
 		log.Fatal(err)
 	}
-	
-	<- c
+
+	<-c
 }
 
 func insertBlock(client *mongo.Client) {
@@ -110,7 +76,7 @@ func insertBlock(client *mongo.Client) {
 	if err := scanner.Err(); err != nil {
 		panic(err)
 	}
-	os.Exit()
+	log.Print("exit")
 }
 
 func hang() {
@@ -126,13 +92,13 @@ func main() {
 	defer cancel()
 
 	clientOptions := options.Client().ApplyURI(fmt.Sprintf("mongodb://%s", *url))
-	clientOptions = clientOptions.SetMaxPoolSize(*insert_num + *delete_num)
+	clientOptions = clientOptions.SetMaxPoolSize(uint64(*insert_num + *delete_num))
 	client, err := mongo.Connect(ctx, clientOptions)
 	if err != nil {
 		panic(err)
 	}
 
-	go insertNoBlock(client)
+	go insertBlock(client)
 
 	for i := 0; i < *delete_num; i++ {
 		go delete(client)
