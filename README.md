@@ -112,4 +112,4 @@
 - [ceph-rbd-mirror.md](https://github.com/jwongzblog/myblog/blob/master/%E5%A4%A7%E5%9E%8B%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/ceph-rbd-mirror.md)
 - [deepin-rbd-mirror.md](https://github.com/jwongzblog/myblog/blob/master/%E5%A4%A7%E5%9E%8B%E5%88%86%E5%B8%83%E5%BC%8F%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/deepin-rbd-mirror.md)
 
-QQ:594772383
+btc addr:14uP5BTeCYGvgrJ5VRRjeHZMkJ5EC7nscc
